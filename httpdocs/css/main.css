@@ -13,3 +13,17 @@ body {
 .container .row{
 	margin-bottom: 30px;
 }
+
+.canvas-maps{
+	border: 1px #ccc solid;
+	position: relative;
+	overflow: hidden;
+	width: 720px;
+	height: 350px;
+}
+
+.canvas-maps > canvas{
+	position: absolute;
+	top:0;
+	left: 0;
+}
