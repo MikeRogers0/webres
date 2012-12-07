@@ -43,4 +43,10 @@ Mines.prototype.draw = function(){
 	canvas.ctx.arc(75, 175, 40, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();
 	canvas.ctx.fill();
+	
+	canvas.ctx.fillStyle = this.getFillStyle(0.3);
+	canvas.ctx.beginPath();
+	canvas.ctx.arc(375, 175, 10, 0, Math.PI*2, true); 
+	canvas.ctx.closePath();
+	canvas.ctx.fill();
 }

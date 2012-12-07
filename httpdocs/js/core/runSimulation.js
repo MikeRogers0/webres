@@ -15,7 +15,7 @@ var semanticData = {
 };
 
 /**
- * Draws all the canvaes ticked.
+ * Draws all the canvaes ticked & finds the best route.
  */
 var runSimulation = function(){
 	// Clear the combined map
@@ -28,6 +28,8 @@ var runSimulation = function(){
 		}
 	}
 	canvas.ctx.restore();
+	
+	// Do the dijkstras stuff here.
 }
 
 // Add the listners
