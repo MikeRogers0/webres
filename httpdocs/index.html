@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>WebRes - Route Finder</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -34,9 +34,7 @@
 			<div class="row">
 				<div class="span8">
 					<div class="canvas-maps">
-						<canvas id="fully-layered" width="770" height="350"></canvas>
-						<canvas id="terrain" width="770" height="350"></canvas>
-						<canvas id="weather" width="770" height="350"></canvas>
+						<canvas id="canvasMap" width="770" height="350"></canvas>
 					</div>
 				</div>
 				<div class="span4">
@@ -66,13 +64,13 @@
 							<form>
 								<fieldset>
 									<label class="checkbox">
-									<input type="checkbox"> Terrain
+									<input type="checkbox" checked="checked" id="terrainCBX"> Terrain (Green on Map)
 									</label>
 									<label class="checkbox">
-									<input type="checkbox"> Weather
+									<input type="checkbox" checked="checked" id="weatherCBX"> Weather (Blue on Map)
 									</label>
 									<label class="checkbox">
-									<input type="checkbox"> Mines
+									<input type="checkbox" id="minesCBX"> Mines (Black in Map)
 									</label>
 								</fieldset>
 							</form>

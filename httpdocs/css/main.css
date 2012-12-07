@@ -16,14 +16,6 @@ body {
 
 .canvas-maps{
 	border: 1px #ccc solid;
-	position: relative;
-	overflow: hidden;
-	width: 720px;
+	width: 770px;
 	height: 350px;
-}
-
-.canvas-maps > canvas{
-	position: absolute;
-	top:0;
-	left: 0;
 }
