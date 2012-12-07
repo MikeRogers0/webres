@@ -14,7 +14,6 @@ var semanticData = {
 	}
 };
 
-
 /**
  * Draws all the canvaes ticked.
  */
@@ -29,4 +28,10 @@ var runSimulation = function(){
 		}
 	}
 	canvas.ctx.restore();
+}
+
+// Add the listners
+document.querySelector('#updateMap').addEventListener('click', runSimulation, false);
+for(i in semanticData){
+	semanticData[i].elm.addEventListener('click', runSimulation, false);
 }
