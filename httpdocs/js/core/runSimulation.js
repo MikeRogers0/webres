@@ -11,6 +11,14 @@ var semanticData = {
 	mines: {
 		elm: document.querySelector('#minesCBX'),
 		object: new Mines()
+	},
+	grid: {
+		elm: document.querySelector('#gridCBX'),
+		object: new Grid()
+	},
+	gridDot: {
+		elm: document.querySelector('#gridDotCBX'),
+		object: new GridDot()
 	}
 };
 
