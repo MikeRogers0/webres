@@ -1,4 +1,4 @@
 webres
 ======
 
-Web Res Coursework
+Webres Coursework
