@@ -5,7 +5,7 @@ head.js(
 	'js/objects/terrain.js', // terrain object
 	'js/objects/weather.js',  // weather object
 	'js/objects/mines.js',  // mines object
-	'js/objects/gridDot.js', // gridDot object
+	'js/objects/griddot.js', // gridDot object
 	'js/objects/grid.js', // grid object
 	'js/objects/dijkstras.js', // dijkstras object
 	'js/core/runSimulation.js', // This runs the above objects
