@@ -18,4 +18,16 @@ body {
 	border: 1px #ccc solid;
 	width: 770px;
 	height: 350px;
+	position: relative;
+	overflow: hidden;
 }
+
+	.canvas-maps > canvas{
+		position: absolute;
+		top:0;
+		left:0;
+		z-index: 5;
+	}
+	#canvasFlare{
+		z-index: 10;
+	}

@@ -14,7 +14,7 @@ GridDot.prototype.updateCanvas = function(){
 
 GridDot.prototype.draw = function(){
 	// We are going to make some areas which varing dangers.
-	canvas.ctx.fillStyle = 'black';
+	flare.ctx.fillStyle = 'black';
 	
 	// Set max width for grid
 	var xMax = 770, yMax = 350;
@@ -23,7 +23,7 @@ GridDot.prototype.draw = function(){
 	// Draws grid onto canvas
 	while(y < yMax){
 		while(x < xMax){
-			canvas.ctx.fillRect(x,y,1,1);
+			flare.ctx.fillRect(x,y,1,1);
 			x = x+10;
 		}
 		x = 5;
