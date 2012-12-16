@@ -28,6 +28,9 @@ body {
 		left:0;
 		z-index: 5;
 	}
-	#canvasFlare{
+	#canvasMap{
 		z-index: 10;
+	}
+	#canvasFlare{
+		z-index: 15;
 	}

@@ -1,5 +1,9 @@
 // Set up the semantic objects.
 var semanticData = {
+	bgMap: {
+		elm: document.querySelector('#bgMapCBX'),
+		object: backgroundMap
+	},
 	terrain: {
 		elm: document.querySelector('#terrainCBX'),
 		object: new Terrain()
