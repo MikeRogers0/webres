@@ -2,6 +2,7 @@ var Terrain = function(){
 	// Set lat/lng from the input fields.
 	this.lat = null;
 	this.lng = null;
+	this.image = new Image();
 }
 
 Terrain.prototype.getFillStyle = function(dangerLevel){
@@ -21,52 +22,31 @@ Terrain.prototype.updateCanvas = function(){
  *  Load up the terrain info from a source on the internet.
  */
 Terrain.prototype.load = function(){
-	// Do the API call & magic *Shiny eyes*.
+	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
+	//http://maps.googleapis.com/maps/api/staticmap?center=53.453894,-1.588915&zoom=8&format=png&sensor=false&size=640x480&maptype=roadmap&style=visibility:off&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified
+
+	var gStaticMapURL = 'http://maps.googleapis.com/maps/api/staticmap?size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:landscape.man_made|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
+	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
+	+latLngs.start.lat.value+','+latLngs.start.lng.value
+	+'&markers='
+	+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
+	+latLngs.end.lat.value+','+latLngs.end.lng.value;
 	
-	// For now I'm ganna draw a bunch of circles.
-	
+	// Now load that image into the DOM
+    this.image.onload = function(){terrainMap.analyse();}; // This will fire when the above is ready
+    this.image.src = gStaticMapURL;
 }
 
-
+Terrain.prototype.analyse = function(){
+	//this.image;
+	this.draw();
+}
 
 /**
  *  
  */
-Terrain.prototype.draw = function(){
-	// We are going to make some areas which varing dangers.
-	canvas.ctx.fillStyle = this.getFillStyle(0.2);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(75, 75, 40, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	canvas.ctx.fillStyle = this.getFillStyle(0.1);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(50, 300, 30, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	canvas.ctx.fillStyle = this.getFillStyle(0.1);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(275, 275, 40, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	canvas.ctx.fillStyle = this.getFillStyle(0.3);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(375, 175, 60, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	canvas.ctx.fillStyle = this.getFillStyle(0.3);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(600, 50, 50, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	canvas.ctx.fillStyle = this.getFillStyle(0.1);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(700, 300, 50, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
+Terrain.prototype.draw = function(){	
+	canvas.ctx.drawImage(this.image, 0, 0);
 }
+
+var terrainMap = new Terrain();

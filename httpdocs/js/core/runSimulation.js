@@ -6,7 +6,7 @@ var semanticData = {
 	},
 	terrain: {
 		elm: document.querySelector('#terrainCBX'),
-		object: new Terrain()
+		object: terrainMap
 	},
 	weather: {
 		elm: document.querySelector('#weatherCBX'),

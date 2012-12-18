@@ -16,8 +16,8 @@ body {
 
 .canvas-maps{
 	border: 1px #ccc solid;
-	width: 770px;
-	height: 350px;
+	width: 640px;
+	height: 400px;
 	position: relative;
 	overflow: hidden;
 }
