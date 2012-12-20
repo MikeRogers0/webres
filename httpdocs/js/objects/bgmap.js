@@ -1,5 +1,6 @@
 var bgMap = function(){
 	this.image = new Image();
+	//this.image.crossOrigin = '';
 }
 
 /**
@@ -12,7 +13,8 @@ bgMap.prototype.updateCanvas = function(){
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='
 	//+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
-	+latLngs.end.lat.value+','+latLngs.end.lng.value;
+	+latLngs.end.lat.value+','+latLngs.end.lng.value
+	+'&key=AIzaSyBO3Zp31IL5PZm_P1YsVXl82N4PgYSVtv0';
 	
 	// Now load that image into the DOM
     this.image.onload = function(){backgroundMap.draw();}; // This will fire when the above is ready

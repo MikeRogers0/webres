@@ -1,8 +1,13 @@
 var Terrain = function(){
-	// Set lat/lng from the input fields.
-	this.lat = null;
-	this.lng = null;
+	// Create the image for the map from google maps.
 	this.image = new Image();
+	this.image.onload = function(){terrainMap.analyse();}
+	
+	// Create a tempory clean canvas.
+	this.canvas = document.createElement('canvas');
+	this.canvas.width = 640;
+	this.canvas.height = 400;
+	this.ctx = this.canvas.getContext('2d');
 }
 
 Terrain.prototype.getFillStyle = function(dangerLevel){
@@ -15,38 +20,79 @@ Terrain.prototype.getFillStyle = function(dangerLevel){
 Terrain.prototype.updateCanvas = function(){
 	// Reset the lap/lng.
 	this.load();
-	this.draw();
 }
 
 /**
- *  Load up the terrain info from a source on the internet.
+ * Gets the static maps URL
  */
-Terrain.prototype.load = function(){
+Terrain.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
-	//http://maps.googleapis.com/maps/api/staticmap?center=53.453894,-1.588915&zoom=8&format=png&sensor=false&size=640x480&maptype=roadmap&style=visibility:off&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified
-
-	var gStaticMapURL = 'http://maps.googleapis.com/maps/api/staticmap?size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:landscape.man_made|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
+	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
+	return gStaticMapURL = 'http://maps.googleapis.com/maps/api/staticmap?size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x00FF00&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
 	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='
 	+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
 	+latLngs.end.lat.value+','+latLngs.end.lng.value;
-	
-	// Now load that image into the DOM
-    this.image.onload = function(){terrainMap.analyse();}; // This will fire when the above is ready
-    this.image.src = gStaticMapURL;
+	//+'&key=AIzaSyBO3Zp31IL5PZm_P1YsVXl82N4PgYSVtv0';
 }
 
+/**
+ *  Load up the terrain info from a source on the internet or from it's cache.
+ */
+Terrain.prototype.load = function(){
+	// Do a AJAX request get of the image to get around CORS
+	// This is from: http://www.visual-experiments.com/2011/12/05/how-to-bypass-webgl-sop-restriction-v2/
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", this.getGMapURL(), true);
+	xhr.responseType = "arraybuffer";
+	xhr.onload = function() {
+	    terrainMap.image.src = arrayBufferDataUri(xhr.response);
+	};
+	xhr.send(null);
+	}
+
 Terrain.prototype.analyse = function(){
-	//this.image;
+	// Draw the loaded on image onto the temp canvas. Load it as a pattern to get around CORS.
+	this.ctx.drawImage(this.image, 0,0);
+	
+	//var pixles = this.ctx.createImageData(this.canvas.width, this.canvas.height, this.image);
+	var pix = this.ctx.getImageData(0,0, this.canvas.width, this.canvas.height);
+	
+	pix = pix.data;
+	
+	//debugger;
+	
+	
+	var popPixel = {};
+	
+	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
+	for(var i = 0, n = pix.length; i < n; i += 4) {
+		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
+			//debugger;
+			// Set the x & y
+			pixelPos = (i / 4); // Number of pixles up to this point.
+			y = parseInt(pixelPos / 640);
+			x = pixelPos%640; // * Use a Modulo operation to get the remainding pixeles on that line.
+			
+			canvas.ctx.fillRect(x+1, y+1, 1, 1);
+			//debugger;
+		}
+		
+	}
+	
+	//debugger;
+	
+	//debugger;
 	this.draw();
+	// window.btoa(this.gMap);
 }
 
 /**
  *  
  */
 Terrain.prototype.draw = function(){	
-	canvas.ctx.drawImage(this.image, 0, 0);
+	//canvas.ctx;
 }
 
 var terrainMap = new Terrain();
