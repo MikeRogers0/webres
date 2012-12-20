@@ -1,13 +1,5 @@
 var Terrain = function(){
-	// Create the image for the map from google maps.
-	this.image = new Image();
-	this.image.onload = function(){terrainMap.analyse();}
-	
-	// Create a tempory clean canvas.
-	this.canvas = document.createElement('canvas');
-	this.canvas.width = 640;
-	this.canvas.height = 400;
-	this.ctx = this.canvas.getContext('2d');
+	this.image = null;
 }
 
 Terrain.prototype.getFillStyle = function(dangerLevel){
@@ -47,12 +39,21 @@ Terrain.prototype.load = function(){
 	xhr.open("GET", this.getGMapURL(), true);
 	xhr.responseType = "arraybuffer";
 	xhr.onload = function() {
+		terrainMap.image = new Image();
+		terrainMap.image.onload = function(){terrainMap.analyse();}
 	    terrainMap.image.src = arrayBufferDataUri(xhr.response);
 	};
 	xhr.send(null);
 	}
 
 Terrain.prototype.analyse = function(){
+	// Create a tempory clean canvas.
+	this.canvas = document.createElement('canvas');
+	this.canvas.width = 640;
+	this.canvas.height = 400;
+	this.ctx = this.canvas.getContext('2d');
+	
+	
 	// Draw the loaded on image onto the temp canvas. Load it as a pattern to get around CORS.
 	this.ctx.drawImage(this.image, 0,0);
 	
@@ -69,14 +70,14 @@ Terrain.prototype.analyse = function(){
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
 		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
-			//debugger;
+			;
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
 			y = parseInt(pixelPos / 640);
-			x = pixelPos%640; // * Use a Modulo operation to get the remainding pixeles on that line.
-			
-			canvas.ctx.fillRect(x+1, y+1, 1, 1);
-			//debugger;
+			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
+
+			canvas.ctx.fillStyle = 'rgba(0, 255, 0, 0.3);';
+			canvas.ctx.fillRect(x, y, 1, 1);
 		}
 		
 	}
