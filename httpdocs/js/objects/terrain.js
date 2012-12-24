@@ -33,18 +33,26 @@ Terrain.prototype.getGMapURL = function(){
  *  Load up the terrain info from a source on the internet or from it's cache.
  */
 Terrain.prototype.load = function(){
-	// Do a AJAX request get of the image to get around CORS
-	// This is from: http://www.visual-experiments.com/2011/12/05/how-to-bypass-webgl-sop-restriction-v2/
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", this.getGMapURL(), true);
-	xhr.responseType = "arraybuffer";
-	xhr.onload = function() {
-		terrainMap.image = new Image();
-		terrainMap.image.onload = function(){terrainMap.analyse();}
-	    terrainMap.image.src = arrayBufferDataUri(xhr.response);
-	};
-	xhr.send(null);
+
+	var image = new Image();
+	
+	image.onload = function(){
+		// Do a AJAX request get of the image to get around CORS
+		// This is from: http://www.visual-experiments.com/2011/12/05/how-to-bypass-webgl-sop-restriction-v2/
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", this.getGMapURL(), true);
+		xhr.responseType = "arraybuffer";
+		xhr.onload = function() {
+			terrainMap.image = new Image();
+			terrainMap.image.onload = function(){terrainMap.analyse();}
+		    terrainMap.image.src = arrayBufferDataUri(xhr.response);
+		};
+		xhr.send(null);
 	}
+	
+	image.src = this.getGMapURL();
+		
+}
 
 Terrain.prototype.analyse = function(){
 	// Create a tempory clean canvas.
