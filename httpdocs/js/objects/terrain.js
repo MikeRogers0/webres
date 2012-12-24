@@ -37,21 +37,25 @@ Terrain.prototype.load = function(){
 	var image = new Image();
 	
 	image.onload = function(){
-		// Do a AJAX request get of the image to get around CORS
-		// This is from: http://www.visual-experiments.com/2011/12/05/how-to-bypass-webgl-sop-restriction-v2/
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", terrainMap.getGMapURL(), true);
-		xhr.responseType = "arraybuffer";
-		xhr.onload = function() {
-			terrainMap.image = new Image();
-			terrainMap.image.onload = function(){terrainMap.analyse();}
-		    terrainMap.image.src = arrayBufferDataUri(xhr.response);
-		};
-		xhr.send(null);
+		terrainMap.loadViaAJAX();
 	}
 	
 	image.src = this.getGMapURL();
 		
+}
+
+Terrain.prototype.loadViaAJAX = function(){
+	// Do a AJAX request get of the image to get around CORS
+	// This is from: http://www.visual-experiments.com/2011/12/05/how-to-bypass-webgl-sop-restriction-v2/
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", this.getGMapURL(), true);
+	xhr.responseType = "arraybuffer";
+	xhr.onload = function() {
+		terrainMap.image = new Image();
+		terrainMap.image.onload = function(){terrainMap.analyse();}
+	    terrainMap.image.src = arrayBufferDataUri(xhr.response);
+	};
+	xhr.send(null);
 }
 
 Terrain.prototype.analyse = function(){
