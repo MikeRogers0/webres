@@ -8,13 +8,12 @@ var bgMap = function(){
  */
 bgMap.prototype.updateCanvas = function(){
 	// Set the google maps URL up.
-	var gStaticMapURL = 'http://maps.googleapis.com/maps/api/staticmap?size=640x400&maptype=terrain&style=feature:all&sensor=false&markers='
+	var gStaticMapURL = 'gmap.php?url='+encodeURIComponent('http://maps.googleapis.com/maps/api/staticmap?size=640x400&maptype=terrain&style=feature:all&sensor=false&markers='
 	//+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='
 	//+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
-	+latLngs.end.lat.value+','+latLngs.end.lng.value
-	+'&key=AIzaSyBO3Zp31IL5PZm_P1YsVXl82N4PgYSVtv0';
+	+latLngs.end.lat.value+','+latLngs.end.lng.value);
 	
 	// Now load that image into the DOM
     this.image.onload = function(){backgroundMap.draw();}; // This will fire when the above is ready

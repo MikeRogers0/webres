@@ -20,13 +20,12 @@ Terrain.prototype.updateCanvas = function(){
 Terrain.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
-	return gStaticMapURL = 'http://maps.googleapis.com/maps/api/staticmap?size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x00FF00&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
+	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('http://maps.googleapis.com/maps/api/staticmap?size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x00FF00&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
 	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='
 	+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
-	+latLngs.end.lat.value+','+latLngs.end.lng.value
-	+'&key=AIzaSyBO3Zp31IL5PZm_P1YsVXl82N4PgYSVtv0';
+	+latLngs.end.lat.value+','+latLngs.end.lng.value);
 }
 
 /**
@@ -34,29 +33,13 @@ Terrain.prototype.getGMapURL = function(){
  */
 Terrain.prototype.load = function(){
 
-	var image = new Image();
-	
-	image.onload = function(){
-		terrainMap.loadViaAJAX();
-	}
-	
-	image.src = this.getGMapURL();
+	this.image = new Image();
+	this.image.onload = function(){terrainMap.analyse();}
+	this.image.src = this.getGMapURL();
+	this.src = this.getGMapURL();
 		
 }
 
-Terrain.prototype.loadViaAJAX = function(){
-	// Do a AJAX request get of the image to get around CORS
-	// This is from: http://www.visual-experiments.com/2011/12/05/how-to-bypass-webgl-sop-restriction-v2/
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", this.getGMapURL(), true);
-	xhr.responseType = "arraybuffer";
-	xhr.onload = function() {
-		terrainMap.image = new Image();
-		terrainMap.image.onload = function(){terrainMap.analyse();}
-	    terrainMap.image.src = arrayBufferDataUri(xhr.response);
-	};
-	xhr.send(null);
-}
 
 Terrain.prototype.analyse = function(){
 	// Create a tempory clean canvas.
