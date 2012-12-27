@@ -20,7 +20,7 @@ Terrain.prototype.updateCanvas = function(){
 Terrain.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
-	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('http://maps.googleapis.com/maps/api/staticmap?size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x00FF00&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
+	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x00FF00&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
 	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='

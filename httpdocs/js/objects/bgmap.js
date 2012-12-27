@@ -8,7 +8,7 @@ var bgMap = function(){
  */
 bgMap.prototype.updateCanvas = function(){
 	// Set the google maps URL up.
-	var gStaticMapURL = 'gmap.php?url='+encodeURIComponent('http://maps.googleapis.com/maps/api/staticmap?size=640x400&maptype=terrain&style=feature:all&sensor=false&markers='
+	var gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=terrain&style=feature:all&sensor=false&markers='
 	//+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='
