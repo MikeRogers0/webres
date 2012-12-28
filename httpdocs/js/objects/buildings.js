@@ -1,28 +1,27 @@
-var Terrain = function(){
+var Building = function(){
 	this.image = null;
 }
 
-Terrain.prototype.getFillStyle = function(dangerLevel){
+Building.prototype.getFillStyle = function(dangerLevel){
 	return 'rgba(0,255,0,'+dangerLevel+')';
 }
 
 /**
  *  Run this function when you want to update the map.
  */
-Terrain.prototype.updateCanvas = function(){
+Building.prototype.updateCanvas = function(){
 	this.image = new Image();
-	this.image.onload = function(){terrainMap.analyse();}
+	this.image.onload = function(){BuildingMap.analyse();}
 	this.image.src = this.getGMapURL();
-		
 }
 
 /**
  * Gets the static maps URL
  */
-Terrain.prototype.getGMapURL = function(){
+Building.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
-	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
-	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x00FF00&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
+	// & < this is buildings.
+	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00&sensor=false&markers='
 	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='
@@ -30,9 +29,7 @@ Terrain.prototype.getGMapURL = function(){
 	+latLngs.end.lat.value+','+latLngs.end.lng.value);
 }
 
-
-
-Terrain.prototype.analyse = function(){
+Building.prototype.analyse = function(){
 	// Create a tempory clean canvas.
 	this.canvas = document.createElement('canvas');
 	this.canvas.width = 640;
@@ -48,6 +45,7 @@ Terrain.prototype.analyse = function(){
 	
 	pix = pix.data;
 	
+	//debugger;
 	
 	
 	var popPixel = {};
@@ -67,6 +65,7 @@ Terrain.prototype.analyse = function(){
 		
 	}
 	
+	this.draw();
 }
 
-var terrainMap = new Terrain();
+var buildingMap = new Building();

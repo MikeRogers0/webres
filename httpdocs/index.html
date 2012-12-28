@@ -33,7 +33,7 @@
 	        
 			<div class="row">
 				<div class="span8">
-					<div class="canvas-maps">
+					<div class="canvas-maps loading">
 						<canvas id="canvasBackground" width="640" height="400"></canvas>
 						<canvas id="canvasMap" width="640" height="400"></canvas>
 						<canvas id="canvasFlare" width="640" height="400"></canvas>
@@ -81,10 +81,24 @@
 							<form>
 								<fieldset>
 									<label class="checkbox">
-										<input type="checkbox" checked="checked" id="terrainCBX"> Terrain (Green on Map)
+										<input type="checkbox" checked="checked" id="terrainCBX"> Terrain (Select/Unselect All)
 									</label>
+									<ul id="terrainOptions">
+										<li><label class="checkbox">
+											<input type="checkbox" checked="checked" id="climbCBX"> Climb (Dark Green on Map)
+										</label></li>
+										<li><label class="checkbox">
+											<input type="checkbox" checked="checked" id="buildingsCBX"> Buildings (Brown on Map)
+										</label></li>
+										<li><label class="checkbox">
+											<input type="checkbox" checked="checked" id="waterCBX"> Water (Blue on Map)
+										</label></li>
+										<li><label class="checkbox">
+											<input type="checkbox" checked="checked" id="roadsCBX"> Roads (Grey on Map)
+										</label></li>
+									</ul>
 									<label class="checkbox">
-										<input type="checkbox" checked="checked" id="weatherCBX"> Weather (Blue on Map)
+										<input type="checkbox" id="weatherCBX"> Weather (Light Blue on Map)
 									</label>
 									<label class="checkbox">
 										<input type="checkbox" id="minesCBX"> Mines (Black in Map)
@@ -97,7 +111,10 @@
 					    	<form>
 								<fieldset>
 									<label class="checkbox">
-										<input type="checkbox" checked="checked" id="bgMapCBX"> Background Map
+										<input type="checkbox" id="bgMapCBX"> Background Map
+									</label>
+									<label class="checkbox">
+										<input type="checkbox" checked="checked" id="startendCBX"> Start / End Points 
 									</label>
 									<label class="checkbox">
 										<input type="checkbox" id="gridDotCBX"> Grid (Dotted)
@@ -112,10 +129,10 @@
 					    	<form>
 								<fieldset>
 									<label class="checkbox">
-										<input type="checkbox"> Land
+										<input type="checkbox" checked="checked"> Land
 									</label>
 									<label class="checkbox">
-										<input type="checkbox"> Water
+										<input type="checkbox" checked="checked"> Water
 									</label>
 								</fieldset>
 							</form>

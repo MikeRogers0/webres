@@ -20,17 +20,38 @@ body {
 	height: 400px;
 	position: relative;
 	overflow: hidden;
+	background: none;
 }
-
+	.canvas-maps.loading{
+		/* 
+			Loading Gif from: http://www.ajaxload.info/
+			Used to give users something to look at while everything is loading up.
+		*/
+		background: url(../img/ajax-loader.gif) no-repeat center center;;
+		
+	}
+	
 	.canvas-maps > canvas{
 		position: absolute;
 		top:0;
 		left:0;
+		opacity: 1;
 		z-index: 5;
+		-moz-transition:opacity 1s linear;
+		-webkit-transition:opacity 1s linear;
+		-o-transition:opacity 1s linear;
+		transition:opacity 1s linear;
 	}
+		.canvas-maps.loading > canvas{
+			opacity: 0;
+		}
 	#canvasMap{
 		z-index: 10;
 	}
 	#canvasFlare{
 		z-index: 15;
 	}
+	
+#terrainOptions li{
+	list-style: none;
+}

@@ -4,9 +4,9 @@ var semanticData = {
 		elm: document.querySelector('#bgMapCBX'),
 		object: backgroundMap
 	},
-	terrain: {
-		elm: document.querySelector('#terrainCBX'),
-		object: terrainMap
+	climb: {
+		elm: document.querySelector('#climbCBX'),
+		object: climbMap
 	},
 	weather: {
 		elm: document.querySelector('#weatherCBX'),
@@ -30,6 +30,9 @@ var semanticData = {
  * Draws all the canvaes ticked & finds the best route.
  */
 var runSimulation = function(){
+	// Turn on the loading gif
+	document.querySelector('.canvas-maps').className = "canvas-maps loading";
+
 	// Clear the combined map
 	canvas.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
 	canvas.ctx.save();
@@ -42,6 +45,11 @@ var runSimulation = function(){
 	canvas.ctx.restore();
 	
 	// Do the dijkstras stuff here.
+	
+	// Now remove the loading gif.
+	window.setTimeout(function(){
+		document.querySelector('.canvas-maps').className = "canvas-maps";
+	}, 1000)
 }
 
 // Add the listners
