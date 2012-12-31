@@ -48,20 +48,26 @@ Terrain.prototype.analyse = function(){
 	
 	pix = pix.data;
 	
-	
-	
 	var popPixel = {};
+	
+	/*
+	if(popPixel[pix[i+1]]){
+		popPixel[pix[i+1]]++;
+	} else {
+		popPixel[pix[i+1]] = 1;
+	}
+	*/
 	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
 		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
-			;
+			
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = 'rgba(0, 255, 0, 0.3);';
+			canvas.ctx.fillStyle = this.getFillStyle('0.2');
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
 		

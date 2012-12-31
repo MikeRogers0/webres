@@ -1,9 +1,12 @@
 /* Load up the JS stuff. The new Date() * 1 stuff is just the break the cache */
 head.js(
 	'js/core/config.js?'+new Date() * 1, // The main variables we're going to use.
-	'js/core/imgToBase64.js?'+new Date() * 1, // this converts imgages to base64 pngs.
 	'js/objects/convoy.js?'+new Date() * 1, // convoy - So we can have images of trucks and what not?
+	'js/objects/startend.js?'+new Date() * 1,  // startend object, it plots the start and end positions.
 	'js/objects/terrain.js?'+new Date() * 1, // terrain object
+	'js/objects/climb.js?'+new Date() * 1, // climb object
+	'js/objects/buildings.js?'+new Date() * 1, // buildings object
+	'js/objects/water.js?'+new Date() * 1, // water object
 	'js/objects/weather.js?'+new Date() * 1,  // weather object
 	'js/objects/mines.js?'+new Date() * 1,  // mines object
 	'js/objects/griddot.js?'+new Date() * 1, // gridDot object

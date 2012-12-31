@@ -59,13 +59,11 @@ Climb.prototype.analyse = function(){
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = 'rgba(0, 255, 0, 0.3);';
+			canvas.ctx.fillStyle = this.getFillStyle('0.2');
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
 		
 	}
-	
-	this.draw();
 }
 
 var climbMap = new Climb();

@@ -3,7 +3,7 @@ var Water = function(){
 }
 
 Water.prototype.getFillStyle = function(dangerLevel){
-	return 'rgba(0,255,0,'+dangerLevel+')';
+	return 'rgba(173,216,230,'+dangerLevel+')';
 }
 
 /**
@@ -11,7 +11,7 @@ Water.prototype.getFillStyle = function(dangerLevel){
  */
 Water.prototype.updateCanvas = function(){
 	this.image = new Image();
-	this.image.onload = function(){WaterMap.analyse();}
+	this.image.onload = function(){waterMap.analyse();}
 	this.image.src = this.getGMapURL();
 		
 }
@@ -48,23 +48,20 @@ Water.prototype.analyse = function(){
 	
 	pix = pix.data;
 	
-	
-	
 	var popPixel = {};
 	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
-		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
-			;
+		if(pix[i+1] == 255){ //If we are looking at the colour green, draw it on the canvas.
+			
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = 'rgba(0, 255, 0, 0.3);';
+			canvas.ctx.fillStyle = this.getFillStyle('1');
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
-		
 	}
 	
 }

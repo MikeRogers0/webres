@@ -1,5 +1,9 @@
 var Dijkstras = function(){
 	// This is like the init function
+	this.hasPixels = false;
+	this.start = {x: 0, y: 0};
+	this.end = {x: 0, y: 0};
+	
 }
 
 Dijkstras.prototype.someFunction = function(){
@@ -23,6 +27,5 @@ Dijkstras.prototype.getDangerLevel = function(x,y){
 	 */
 	return (imgData.data[3] / 255);
 }
-
 
 dijkstras = new Dijkstras();

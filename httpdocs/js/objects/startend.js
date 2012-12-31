@@ -1,35 +1,51 @@
-var Building = function(){
+var StartEnd = function(){
 	this.image = null;
+	this.showOnCanvas = false;
+	this.callback = function(){};
 }
 
-Building.prototype.getFillStyle = function(dangerLevel){
-	return 'rgba(160,82,45,'+dangerLevel+')';
+StartEnd.prototype.reset = function(){
+	this.image = null;
+	this.showOnCanvas = false;
+	this.callback = function(){};
+}
+
+StartEnd.prototype.getFillStyle = function(dangerLevel){
+	return 'rgba(173,216,230,'+dangerLevel+')';
 }
 
 /**
  *  Run this function when you want to update the map.
  */
-Building.prototype.updateCanvas = function(){
+StartEnd.prototype.updateCanvas = function(){
+	this.showOnCanvas = true;
+}
+
+StartEnd.prototype.setPoints = function(callback){
+	this.callback = callback;
+
 	this.image = new Image();
-	this.image.onload = function(){buildingsMap.analyse();}
+	this.image.onload = function(){StartEndMap.analyse();}
 	this.image.src = this.getGMapURL();
 }
 
 /**
  * Gets the static maps URL
  */
-Building.prototype.getGMapURL = function(){
+StartEnd.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
-	// & < this is buildings.
-	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x40ff30&sensor=false&markers='
-	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
+	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
+	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&sensor=false&style=visibility:off&markers='
+	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/blue.png%7C'
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='
-	+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
+	+'color:red%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/red.png%7C'
 	+latLngs.end.lat.value+','+latLngs.end.lng.value);
 }
 
-Building.prototype.analyse = function(){
+
+
+StartEnd.prototype.analyse = function(){
 	// Create a tempory clean canvas.
 	this.canvas = document.createElement('canvas');
 	this.canvas.width = 640;
@@ -45,25 +61,30 @@ Building.prototype.analyse = function(){
 	
 	pix = pix.data;
 	
-	//debugger;
-	
-	
 	var popPixel = {};
 	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
-		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
-			;
+		if(pix[i+1] == 255){ //If we are looking at the colour green, draw it on the canvas.
+			
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = this.getFillStyle('0.2');
+			canvas.ctx.fillStyle = this.getFillStyle('1');
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
-		
+		if(popPixel[pix[i+1]]){
+			popPixel[pix[i+1]]++;
+		} else {
+			popPixel[pix[i+1]] = 1;
+		}
 	}
+	debugger;
+	
+	this.callback();
+	
 }
 
-var buildingsMap = new Building();
+var StartEndMap = new StartEnd();
