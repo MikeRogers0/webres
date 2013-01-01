@@ -1,6 +1,5 @@
 var Water = function(){
-	self = this;
-	self.image = null;
+	this.image = null;
 }
 
 Water.prototype.getFillStyle = function(dangerLevel){
@@ -11,9 +10,9 @@ Water.prototype.getFillStyle = function(dangerLevel){
  *  Run this function when you want to update the map.
  */
 Water.prototype.updateCanvas = function(){
-	self.image = new Image();
-	self.image.onload = self.analyse;
-	self.image.src = self.getGMapURL();
+	this.image = new Image();
+	this.image.onload = function(){waterMap.analyse();};
+	this.image.src = this.getGMapURL();
 		
 }
 
@@ -35,17 +34,17 @@ Water.prototype.getGMapURL = function(){
 
 Water.prototype.analyse = function(){
 	// Create a tempory clean canvas.
-	self.canvas = document.createElement('canvas');
-	self.canvas.width = 640;
-	self.canvas.height = 400;
-	self.ctx = self.canvas.getContext('2d');
+	this.canvas = document.createElement('canvas');
+	this.canvas.width = 640;
+	this.canvas.height = 400;
+	this.ctx = this.canvas.getContext('2d');
 	
 	
 	// Draw the loaded on image onto the temp canvas. Load it as a pattern to get around CORS.
-	self.ctx.drawImage(self.image, 0,0);
+	this.ctx.drawImage(this.image, 0,0);
 	
-	//var pixles = self.ctx.createImageData(self.canvas.width, self.canvas.height, self.image);
-	var pix = self.ctx.getImageData(0,0, self.canvas.width, self.canvas.height);
+	//var pixles = this.ctx.createImageData(this.canvas.width, this.canvas.height, this.image);
+	var pix = this.ctx.getImageData(0,0, this.canvas.width, this.canvas.height);
 	
 	pix = pix.data;
 	
@@ -60,7 +59,7 @@ Water.prototype.analyse = function(){
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = self.getFillStyle('1');
+			canvas.ctx.fillStyle = this.getFillStyle('1');
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
 	}

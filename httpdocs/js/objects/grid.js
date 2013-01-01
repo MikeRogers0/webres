@@ -1,5 +1,4 @@
 var Grid = function(){
-	self = this;
 	// Set lat/lng from the input fields.
 	this.lat = null;
 	this.lng = null;
@@ -10,7 +9,7 @@ var Grid = function(){
  */
 Grid.prototype.updateCanvas = function(){
 	// Reset the lap/lng.
-	self.draw();
+	this.draw();
 }
 
 Grid.prototype.draw = function(){

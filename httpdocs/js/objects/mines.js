@@ -1,5 +1,5 @@
 var Mines = function(){
-	self = this;
+	var self = this;
 	// Set lat/lng from the input fields.
 	self.lat = null;
 	self.lng = null;

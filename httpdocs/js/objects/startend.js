@@ -1,14 +1,13 @@
 var StartEnd = function(){
-	self = this;
-	self.image = null;
-	self.showOnCanvas = false;
-	self.callback = function(){};
+	this.image = null;
+	this.showOnCanvas = false;
+	this.callback = function(){};
 }
 
 StartEnd.prototype.reset = function(){
-	self.image = null;
-	self.showOnCanvas = false;
-	self.callback = function(){};
+	this.image = null;
+	this.showOnCanvas = false;
+	this.callback = function(){};
 }
 
 StartEnd.prototype.getFillStyle = function(dangerLevel){
@@ -19,15 +18,15 @@ StartEnd.prototype.getFillStyle = function(dangerLevel){
  *  Run this function when you want to update the map.
  */
 StartEnd.prototype.updateCanvas = function(){
-	self.showOnCanvas = true;
+	this.showOnCanvas = true;
 }
 
 StartEnd.prototype.setPoints = function(callback){
-	self.callback = callback;
+	this.callback = callback;
 
-	self.image = new Image();
-	self.image.onload = self.analyse;
-	self.image.src = self.getGMapURL();
+	this.image = new Image();
+	this.image.onload = function(){StartEndMap.analyse();};
+	this.image.src = this.getGMapURL();
 }
 
 /**
@@ -48,17 +47,17 @@ StartEnd.prototype.getGMapURL = function(){
 
 StartEnd.prototype.analyse = function(){
 	// Create a tempory clean canvas.
-	self.canvas = document.createElement('canvas');
-	self.canvas.width = 640;
-	self.canvas.height = 400;
-	self.ctx = self.canvas.getContext('2d');
+	this.canvas = document.createElement('canvas');
+	this.canvas.width = 640;
+	this.canvas.height = 400;
+	this.ctx = this.canvas.getContext('2d');
 	
 	
 	// Draw the loaded on image onto the temp canvas. Load it as a pattern to get around CORS.
-	self.ctx.drawImage(self.image, 0,0);
+	this.ctx.drawImage(this.image, 0,0);
 	
-	//var pixles = self.ctx.createImageData(self.canvas.width, self.canvas.height, self.image);
-	var pix = self.ctx.getImageData(0,0, self.canvas.width, self.canvas.height);
+	//var pixles = this.ctx.createImageData(this.canvas.width, this.canvas.height, this.image);
+	var pix = this.ctx.getImageData(0,0, this.canvas.width, this.canvas.height);
 	
 	pix = pix.data;
 	
@@ -80,7 +79,7 @@ StartEnd.prototype.analyse = function(){
 		}
 	}
 	
-	self.callback();
+	this.callback();
 	
 }
 
