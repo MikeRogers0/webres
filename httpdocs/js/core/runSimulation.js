@@ -72,7 +72,7 @@ var runSimulation = function(){
 	// Make the last object enable show the map.
 	semanticData[lastSemanticObject].object.callback = function(){
 	
-		startend.setPoints(function(){
+		StartEndMap.setPoints(function(){
 			// Do the dijkstras stuff here.
 	
 			// Now remove the loading gif.
