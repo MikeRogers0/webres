@@ -12,7 +12,7 @@ Climb.prototype.getFillStyle = function(dangerLevel){
  */
 Climb.prototype.updateCanvas = function(){
 	self.image = new Image();
-	self.image.onload = self.analyse();
+	self.image.onload = self.analyse;
 	self.image.src = self.getGMapURL();
 }
 
