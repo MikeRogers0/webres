@@ -1,5 +1,6 @@
 var Building = function(){
-	this.image = null;
+	self = this;
+	self.image = null;
 }
 
 Building.prototype.getFillStyle = function(dangerLevel){
@@ -10,9 +11,9 @@ Building.prototype.getFillStyle = function(dangerLevel){
  *  Run this function when you want to update the map.
  */
 Building.prototype.updateCanvas = function(){
-	this.image = new Image();
-	this.image.onload = function(){buildingsMap.analyse();}
-	this.image.src = this.getGMapURL();
+	self.image = new Image();
+	self.image.onload = self.analyse;
+	self.image.src = self.getGMapURL();
 }
 
 /**
@@ -31,17 +32,17 @@ Building.prototype.getGMapURL = function(){
 
 Building.prototype.analyse = function(){
 	// Create a tempory clean canvas.
-	this.canvas = document.createElement('canvas');
-	this.canvas.width = 640;
-	this.canvas.height = 400;
-	this.ctx = this.canvas.getContext('2d');
+	self.canvas = document.createElement('canvas');
+	self.canvas.width = 640;
+	self.canvas.height = 400;
+	self.ctx = self.canvas.getContext('2d');
 	
 	
 	// Draw the loaded on image onto the temp canvas. Load it as a pattern to get around CORS.
-	this.ctx.drawImage(this.image, 0,0);
+	self.ctx.drawImage(self.image, 0,0);
 	
-	//var pixles = this.ctx.createImageData(this.canvas.width, this.canvas.height, this.image);
-	var pix = this.ctx.getImageData(0,0, this.canvas.width, this.canvas.height);
+	//var pixles = self.ctx.createImageData(self.canvas.width, self.canvas.height, self.image);
+	var pix = self.ctx.getImageData(0,0, self.canvas.width, self.canvas.height);
 	
 	pix = pix.data;
 	
@@ -59,7 +60,7 @@ Building.prototype.analyse = function(){
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = this.getFillStyle('0.2');
+			canvas.ctx.fillStyle = self.getFillStyle('0.2');
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
 		

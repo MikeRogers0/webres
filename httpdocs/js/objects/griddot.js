@@ -1,4 +1,5 @@
 var GridDot = function(){
+	self = this;
 	// Set lat/lng from the input fields.
 	this.lat = null;
 	this.lng = null;
@@ -9,7 +10,7 @@ var GridDot = function(){
  */
 GridDot.prototype.updateCanvas = function(){
 	// Reset the lap/lng.
-	this.draw();
+	self.draw();
 }
 
 GridDot.prototype.draw = function(){

@@ -1,6 +1,7 @@
 var bgMap = function(){
-	this.image = new Image();
-	//this.image.crossOrigin = '';
+	self = this;
+	self.image = new Image();
+	//self.image.crossOrigin = '';
 }
 
 /**
@@ -16,12 +17,12 @@ bgMap.prototype.updateCanvas = function(){
 	+latLngs.end.lat.value+','+latLngs.end.lng.value);
 	
 	// Now load that image into the DOM
-    this.image.onload = function(){backgroundMap.draw();}; // This will fire when the above is ready
-    this.image.src = gStaticMapURL;
+    self.image.onload = self.draw; // This will fire when the above is ready
+    self.image.src = gStaticMapURL;
 }
 
 bgMap.prototype.draw = function(){
-	background.ctx.drawImage(this.image, 0, 0);
+	background.ctx.drawImage(self.image, 0, 0);
 }
 
 var backgroundMap = new bgMap();

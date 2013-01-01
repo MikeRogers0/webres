@@ -1,13 +1,14 @@
 var StartEnd = function(){
-	this.image = null;
-	this.showOnCanvas = false;
-	this.callback = function(){};
+	self = this;
+	self.image = null;
+	self.showOnCanvas = false;
+	self.callback = function(){};
 }
 
 StartEnd.prototype.reset = function(){
-	this.image = null;
-	this.showOnCanvas = false;
-	this.callback = function(){};
+	self.image = null;
+	self.showOnCanvas = false;
+	self.callback = function(){};
 }
 
 StartEnd.prototype.getFillStyle = function(dangerLevel){
@@ -18,15 +19,15 @@ StartEnd.prototype.getFillStyle = function(dangerLevel){
  *  Run this function when you want to update the map.
  */
 StartEnd.prototype.updateCanvas = function(){
-	this.showOnCanvas = true;
+	self.showOnCanvas = true;
 }
 
 StartEnd.prototype.setPoints = function(callback){
-	this.callback = callback;
+	self.callback = callback;
 
-	this.image = new Image();
-	this.image.onload = function(){StartEndMap.analyse();}
-	this.image.src = this.getGMapURL();
+	self.image = new Image();
+	self.image.onload = self.analyse;
+	self.image.src = self.getGMapURL();
 }
 
 /**
@@ -47,43 +48,39 @@ StartEnd.prototype.getGMapURL = function(){
 
 StartEnd.prototype.analyse = function(){
 	// Create a tempory clean canvas.
-	this.canvas = document.createElement('canvas');
-	this.canvas.width = 640;
-	this.canvas.height = 400;
-	this.ctx = this.canvas.getContext('2d');
+	self.canvas = document.createElement('canvas');
+	self.canvas.width = 640;
+	self.canvas.height = 400;
+	self.ctx = self.canvas.getContext('2d');
 	
 	
 	// Draw the loaded on image onto the temp canvas. Load it as a pattern to get around CORS.
-	this.ctx.drawImage(this.image, 0,0);
+	self.ctx.drawImage(self.image, 0,0);
 	
-	//var pixles = this.ctx.createImageData(this.canvas.width, this.canvas.height, this.image);
-	var pix = this.ctx.getImageData(0,0, this.canvas.width, this.canvas.height);
+	//var pixles = self.ctx.createImageData(self.canvas.width, self.canvas.height, self.image);
+	var pix = self.ctx.getImageData(0,0, self.canvas.width, self.canvas.height);
 	
 	pix = pix.data;
 	
-	var popPixel = {};
-	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
-		if(pix[i+1] == 255){ //If we are looking at the colour green, draw it on the canvas.
+		if((pix[i] == 252 || pix[i+2] == 248) && pix[i+3] == 255){ //If we are looking at the colour green, draw it on the canvas.
 			
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
-
-			canvas.ctx.fillStyle = this.getFillStyle('1');
-			canvas.ctx.fillRect(x, y, 1, 1);
-		}
-		if(popPixel[pix[i+1]]){
-			popPixel[pix[i+1]]++;
-		} else {
-			popPixel[pix[i+1]] = 1;
+			
+			// Set the dijkstras variables.
+			if(pix[i+2] == 248){
+				dijkstras.start = {x:x,y:y};
+			} else {
+				dijkstras.end = {x:x,y:y};
+			}
 		}
 	}
-	debugger;
 	
-	this.callback();
+	self.callback();
 	
 }
 

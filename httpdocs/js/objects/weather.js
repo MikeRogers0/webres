@@ -1,7 +1,8 @@
 var Weather = function(){
+	self = this;
 	// Set lat/lng from the input fields.
-	this.lat = null;
-	this.lng = null;
+	self.lat = null;
+	self.lng = null;
 }
 
 Weather.prototype.getFillStyle = function(dangerLevel){
@@ -13,8 +14,8 @@ Weather.prototype.getFillStyle = function(dangerLevel){
  */
 Weather.prototype.updateCanvas = function(){
 	// Reset the lap/lng.
-	this.load();
-	this.draw();
+	self.load();
+	self.draw();
 }
 
 /**
@@ -32,19 +33,19 @@ Weather.prototype.load = function(){
  */
 Weather.prototype.draw = function(){
 	// We are going to make some areas which varing dangers.
-	canvas.ctx.fillStyle = this.getFillStyle(0.2);
+	canvas.ctx.fillStyle = self.getFillStyle(0.2);
 	canvas.ctx.beginPath();
 	canvas.ctx.arc(275, 75, 40, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();
 	canvas.ctx.fill();
 	
-	canvas.ctx.fillStyle = this.getFillStyle(0.2);
+	canvas.ctx.fillStyle = self.getFillStyle(0.2);
 	canvas.ctx.beginPath();
 	canvas.ctx.arc(75, 275, 40, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();
 	canvas.ctx.fill();
 	
-	canvas.ctx.fillStyle = this.getFillStyle(0.3);
+	canvas.ctx.fillStyle = self.getFillStyle(0.3);
 	canvas.ctx.beginPath();
 	canvas.ctx.arc(375, 175, 20, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();

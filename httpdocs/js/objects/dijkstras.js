@@ -1,4 +1,5 @@
 var Dijkstras = function(){
+	self = this;
 	// This is like the init function
 	this.hasPixels = false;
 	this.start = {x: 0, y: 0};
