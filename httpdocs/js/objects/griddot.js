@@ -2,6 +2,9 @@ var GridDot = function(){
 	// Set lat/lng from the input fields.
 	this.lat = null;
 	this.lng = null;
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 /**
@@ -29,4 +32,12 @@ GridDot.prototype.draw = function(){
 		x = 5;
 		y = y+10;
 	};
+	
+	this.callback();
 }
+
+GridDot.prototype.initialize = function(){
+	GridDotMap.updateCanvas();
+}
+
+GridDotMap = new GridDot();

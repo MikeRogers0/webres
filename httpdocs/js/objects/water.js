@@ -1,5 +1,8 @@
 var Water = function(){
 	this.image = null;
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 Water.prototype.getFillStyle = function(dangerLevel){
@@ -64,6 +67,11 @@ Water.prototype.analyse = function(){
 		}
 	}
 	
+	this.callback();
+}
+
+Water.prototype.initialize = function(){
+	waterMap.updateCanvas();
 }
 
 var waterMap = new Water();

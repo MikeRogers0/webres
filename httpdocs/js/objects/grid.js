@@ -2,6 +2,9 @@ var Grid = function(){
 	// Set lat/lng from the input fields.
 	this.lat = null;
 	this.lng = null;
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 /**
@@ -30,5 +33,12 @@ Grid.prototype.draw = function(){
 		flare.ctx.fillRect(x, y, 1, yMax);
 		x = x+10;
 	}
-
+	
+	this.callback();
 }
+
+Grid.prototype.initialize = function(){
+	GridMap.updateCanvas();
+}
+
+GridMap = new Grid();

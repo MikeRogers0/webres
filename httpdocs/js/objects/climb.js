@@ -1,5 +1,8 @@
 var Climb = function(){
 	this.image = null;
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 Climb.prototype.getFillStyle = function(dangerLevel){
@@ -65,6 +68,12 @@ Climb.prototype.analyse = function(){
 		}
 		
 	}
+	
+	this.callback();
+}
+
+Climb.prototype.initialize = function(){
+	climbMap.updateCanvas();
 }
 
 var climbMap = new Climb();

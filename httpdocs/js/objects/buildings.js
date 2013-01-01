@@ -1,5 +1,8 @@
 var Building = function(){
 	this.image = null;
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 Building.prototype.getFillStyle = function(dangerLevel){
@@ -64,6 +67,12 @@ Building.prototype.analyse = function(){
 		}
 		
 	}
+	
+	this.callback();
+}
+
+Building.prototype.initialize = function(){
+	buildingsMap.updateCanvas();
 }
 
 var buildingsMap = new Building();

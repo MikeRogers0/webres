@@ -19,14 +19,16 @@ StartEnd.prototype.getFillStyle = function(dangerLevel){
  */
 StartEnd.prototype.updateCanvas = function(){
 	this.showOnCanvas = true;
+	
+	this.callback();
 }
 
 StartEnd.prototype.setPoints = function(callback){
-	this.callback = callback;
-
 	this.image = new Image();
 	this.image.onload = function(){StartEndMap.analyse();};
 	this.image.src = this.getGMapURL();
+	
+	callback();
 }
 
 /**
@@ -78,9 +80,11 @@ StartEnd.prototype.analyse = function(){
 			}
 		}
 	}
-	
 	this.callback();
-	
+}
+
+StartEnd.prototype.initialize = function(){
+	StartEndMap.updateCanvas();
 }
 
 var StartEndMap = new StartEnd();

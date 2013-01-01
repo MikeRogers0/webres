@@ -1,6 +1,9 @@
 var bgMap = function(){
 	this.image = new Image();
 	//this.image.crossOrigin = '';
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 /**
@@ -22,6 +25,12 @@ bgMap.prototype.updateCanvas = function(){
 
 bgMap.prototype.draw = function(){
 	background.ctx.drawImage(this.image, 0, 0);
+	
+	this.callback();
+}
+
+bgMap.prototype.initialize = function(){
+	backgroundMap.updateCanvas();
 }
 
 var backgroundMap = new bgMap();

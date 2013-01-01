@@ -2,6 +2,9 @@ var Weather = function(){
 	// Set lat/lng from the input fields.
 	this.lat = null;
 	this.lng = null;
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 Weather.prototype.getFillStyle = function(dangerLevel){
@@ -49,4 +52,12 @@ Weather.prototype.draw = function(){
 	canvas.ctx.arc(375, 175, 20, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();
 	canvas.ctx.fill();
+	
+	this.callback();
 }
+
+Weather.prototype.initialize = function(){
+	WeatherMap.updateCanvas();
+}
+
+WeatherMap = new Weather();

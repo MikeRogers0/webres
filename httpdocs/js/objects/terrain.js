@@ -1,5 +1,8 @@
 var Terrain = function(){
 	this.image = null;
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 Terrain.prototype.getFillStyle = function(dangerLevel){
@@ -73,6 +76,11 @@ Terrain.prototype.analyse = function(){
 		
 	}
 	
+	this.callback();
+}
+
+Terrain.prototype.initialize = function(){
+	terrainMap.updateCanvas();
 }
 
 var terrainMap = new Terrain();

@@ -18,23 +18,23 @@ var semanticData = {
 	},
 	weather: {
 		elm: document.querySelector('#weatherCBX'),
-		object: new Weather()
+		object: WeatherMap
 	},
-	mines: {
-		elm: document.querySelector('#minesCBX'),
-		object: new Mines()
-	},
+	//mines: {
+	//	elm: document.querySelector('#minesCBX'),
+	//	object: new Mines()
+	//},
 	startend: {
 		elm: document.querySelector('#minesCBX'),
 		object: StartEndMap
 	},
 	grid: {
 		elm: document.querySelector('#gridCBX'),
-		object: new Grid()
+		object: GridMap
 	},
 	gridDot: {
 		elm: document.querySelector('#gridDotCBX'),
-		object: new GridDot()
+		object: GridDotMap
 	}
 };
 
@@ -47,25 +47,42 @@ var runSimulation = function(){
 
 	// Clear the combined map
 	canvas.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
+	
 	// Reset the plotting points
 	semanticData.startend.object.reset();
 	
-	//canvas.ctx.save();
+	
 	// Itterate through each canvas updating their maps via the callback.
+	var lastSemanticObject = null;
+	var firstSemanticObject = null;
+	
+	// Loop through the objects, listing all the enabled ones & logging the first & last objects.
 	for(i in semanticData){
 		if(semanticData[i].elm.checked){
-			semanticData[i].object.updateCanvas();
+			if(lastSemanticObject == null){
+				firstSemanticObject = i;
+			} else {
+				semanticData[lastSemanticObject].object.callback = semanticData[i].object.initialize;
+			}
+			
+			lastSemanticObject = i;
 		}
 	}
-	//canvas.ctx.restore();
 	
-	// Set the start / end points.
-	semanticData.startend.object.setPoints(function(){
-		// Do the dijkstras stuff here.
+	// Make the last object enable show the map.
+	semanticData[lastSemanticObject].object.callback = function(){
 	
-		// Now remove the loading gif.
-		document.querySelector('.canvas-maps').className = "canvas-maps";
-	});
+		startend.setPoints(function(){
+			// Do the dijkstras stuff here.
+	
+			// Now remove the loading gif.
+			document.querySelector('.canvas-maps').className = "canvas-maps";	
+		});
+		
+	};
+	
+	// Run the first object.
+	semanticData[firstSemanticObject].object.initialize();
 }
 
 // Add the listners

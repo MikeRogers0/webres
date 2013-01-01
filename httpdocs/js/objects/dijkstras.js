@@ -4,6 +4,8 @@ var Dijkstras = function(){
 	this.start = {x: 0, y: 0};
 	this.end = {x: 0, y: 0};
 	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 Dijkstras.prototype.someFunction = function(){
@@ -26,6 +28,10 @@ Dijkstras.prototype.getDangerLevel = function(x,y){
 	 * but on a scale of 0 - 255, so thats why we return the crazy bit of code below.
 	 */
 	return (imgData.data[3] / 255);
+}
+
+Dijkstras.prototype.initialize = function(){
+	dijkstras.someFunction();
 }
 
 dijkstras = new Dijkstras();
