@@ -17,7 +17,8 @@ GridDot.prototype.draw = function(){
 	canvas.ctx.fillStyle = 'black';
 	
 	// Set max width for grid
-	var xMax = 770, yMax = 350;
+	var xMax = $('#canvasMap').width();
+	var yMax = $('#canvasMap').height();
 	var x = 5, y = 5;
 	
 	// Draws grid onto canvas
