@@ -44,17 +44,7 @@ dijkstras = new Dijkstras();
 var graph; //canvas map
 var adj = new Array(); //array of all possible 'next' nodes
 
-var runSimulation = function(){
-	// Clear the combined map
-	canvas.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
-	canvas.ctx.save();
-	// Itterate through each canvas updating their maps via the callback.
-	for(i in semanticData){
-		if(semanticData[i].elm.checked){
-			semanticData[i].object.updateCanvas();
-		}
-	}
-	canvas.ctx.restore();
+var dijkstrasrunSimulation = function(){
 	
 	// Do the dijkstras stuff here.
 
@@ -120,7 +110,7 @@ function findRoute(sx, sy, fx, fy){
 	validateInputs(sx, sy, fx, fy);
 	
 	//get graph data
-	var graph = runSimulation();
+	var graph = dijkstrasrunSimulation();
 	
 	var currentSquare;
 	var startX = sx; //between 0 - 76
@@ -320,10 +310,4 @@ function findRoute(sx, sy, fx, fy){
 		path.y = pathParent[1];
 		path.p = graph[path.x][path.y].parent;
 	}
-}
-
-// Add the listners
-document.querySelector('#updateMap').addEventListener('click', runSimulation, false);
-for(i in semanticData){
-	semanticData[i].elm.addEventListener('click', runSimulation, false);
 }
