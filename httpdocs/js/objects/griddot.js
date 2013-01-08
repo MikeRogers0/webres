@@ -2,6 +2,9 @@ var GridDot = function(){
 	// Set lat/lng from the input fields.
 	this.lat = null;
 	this.lng = null;
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 /**
@@ -14,7 +17,7 @@ GridDot.prototype.updateCanvas = function(){
 
 GridDot.prototype.draw = function(){
 	// We are going to make some areas which varing dangers.
-	canvas.ctx.fillStyle = 'black';
+	flare.ctx.fillStyle = 'black';
 	
 	// Set max width for grid
 	var xMax = $('#canvasMap').width();
@@ -24,10 +27,18 @@ GridDot.prototype.draw = function(){
 	// Draws grid onto canvas
 	while(y < yMax){
 		while(x < xMax){
-			canvas.ctx.fillRect(x,y,1,1);
+			flare.ctx.fillRect(x,y,1,1);
 			x = x+10;
 		}
 		x = 5;
 		y = y+10;
 	};
+	
+	this.callback();
 }
+
+GridDot.prototype.initialize = function(){
+	GridDotMap.updateCanvas();
+}
+
+GridDotMap = new GridDot();

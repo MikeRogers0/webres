@@ -2,6 +2,9 @@ var Grid = function(){
 	// Set lat/lng from the input fields.
 	this.lat = null;
 	this.lng = null;
+	
+	// When this object is done, run the next object via cal
+	this.callback = function(){};
 }
 
 /**
@@ -14,7 +17,7 @@ Grid.prototype.updateCanvas = function(){
 
 Grid.prototype.draw = function(){
 	// We are going to make some areas which varing dangers.
-	canvas.ctx.fillStyle = '#e5e5e5';
+	flare.ctx.fillStyle = '#e5e5e5';
 	
 	// Set max width for grid
 	var xMax = $('#canvasMap').width();
@@ -22,13 +25,21 @@ Grid.prototype.draw = function(){
 	var x = 0, y = 10;
 
 	while(y < yMax){
-		canvas.ctx.fillRect(x, y, xMax, 1);
+		flare.ctx.fillRect(x, y, xMax, 1);
 		y = y+10;
 	}
 	
 	var x = 10, y = 0;
 	while(x < xMax){
-		canvas.ctx.fillRect(x, y, 1, yMax);
+		flare.ctx.fillRect(x, y, 1, yMax);
 		x = x+10;
 	}
+	
+	this.callback();
 }
+
+Grid.prototype.initialize = function(){
+	GridMap.updateCanvas();
+}
+
+GridMap = new Grid();

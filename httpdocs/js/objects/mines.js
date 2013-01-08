@@ -1,7 +1,8 @@
 var Mines = function(){
+	var self = this;
 	// Set lat/lng from the input fields.
-	this.lat = null;
-	this.lng = null;
+	self.lat = null;
+	self.lng = null;
 }
 
 Mines.prototype.getFillStyle = function(dangerLevel){
@@ -13,8 +14,8 @@ Mines.prototype.getFillStyle = function(dangerLevel){
  */
 Mines.prototype.updateCanvas = function(){
 	// Reset the lap/lng.
-	this.load();
-	this.draw();
+	self.load();
+	self.draw();
 }
 
 /**
@@ -32,19 +33,19 @@ Mines.prototype.load = function(){
  */
 Mines.prototype.draw = function(){
 	// We are going to make some areas which varing dangers.
-	canvas.ctx.fillStyle = this.getFillStyle(0.2);
+	canvas.ctx.fillStyle = self.getFillStyle(0.2);
 	canvas.ctx.beginPath();
 	canvas.ctx.arc(175, 75, 40, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();
 	canvas.ctx.fill();
 	
-	canvas.ctx.fillStyle = this.getFillStyle(0.2);
+	canvas.ctx.fillStyle = self.getFillStyle(0.2);
 	canvas.ctx.beginPath();
 	canvas.ctx.arc(75, 175, 40, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();
 	canvas.ctx.fill();
 	
-	canvas.ctx.fillStyle = this.getFillStyle(0.3);
+	canvas.ctx.fillStyle = self.getFillStyle(0.3);
 	canvas.ctx.beginPath();
 	canvas.ctx.arc(375, 175, 10, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();

@@ -1,41 +1,53 @@
-var Terrain = function(){
+var StartEnd = function(){
 	this.image = null;
-	
-	// When this object is done, run the next object via cal
+	this.showOnCanvas = false;
 	this.callback = function(){};
 }
 
-Terrain.prototype.getFillStyle = function(dangerLevel){
-	return 'rgba(0,255,0,'+dangerLevel+')';
+StartEnd.prototype.reset = function(){
+	this.image = null;
+	this.showOnCanvas = false;
+	this.callback = function(){};
+}
+
+StartEnd.prototype.getFillStyle = function(dangerLevel){
+	return 'rgba(173,216,230,'+dangerLevel+')';
 }
 
 /**
  *  Run this function when you want to update the map.
  */
-Terrain.prototype.updateCanvas = function(){
+StartEnd.prototype.updateCanvas = function(){
+	this.showOnCanvas = true;
+	
+	this.callback();
+}
+
+StartEnd.prototype.setPoints = function(callback){
 	this.image = new Image();
-	this.image.onload = function(){terrainMap.analyse();};
+	this.image.onload = function(){StartEndMap.analyse();};
 	this.image.src = this.getGMapURL();
-		
+	
+	callback();
 }
 
 /**
  * Gets the static maps URL
  */
-Terrain.prototype.getGMapURL = function(){
+StartEnd.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
-	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x00FF00&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
-	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
+	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&sensor=false&style=visibility:off&markers='
+	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/blue.png%7C'
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='
-	+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
+	+'color:red%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/red.png%7C'
 	+latLngs.end.lat.value+','+latLngs.end.lng.value);
 }
 
 
 
-Terrain.prototype.analyse = function(){
+StartEnd.prototype.analyse = function(){
 	// Create a tempory clean canvas.
 	this.canvas = document.createElement('canvas');
 	this.canvas.width = 640;
@@ -51,36 +63,28 @@ Terrain.prototype.analyse = function(){
 	
 	pix = pix.data;
 	
-	var popPixel = {};
-	
-	/*
-	if(popPixel[pix[i+1]]){
-		popPixel[pix[i+1]]++;
-	} else {
-		popPixel[pix[i+1]] = 1;
-	}
-	*/
-	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
-		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
+		if((pix[i] == 252 || pix[i+2] == 248) && pix[i+3] == 255){ //If we are looking at the colour green, draw it on the canvas.
 			
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
-
-			canvas.ctx.fillStyle = this.getFillStyle('0.2');
-			canvas.ctx.fillRect(x, y, 1, 1);
+			
+			// Set the dijkstras variables.
+			if(pix[i+2] == 248){
+				dijkstras.start = {x:x,y:y};
+			} else {
+				dijkstras.end = {x:x,y:y};
+			}
 		}
-		
 	}
-	
 	this.callback();
 }
 
-Terrain.prototype.initialize = function(){
-	terrainMap.updateCanvas();
+StartEnd.prototype.initialize = function(){
+	StartEndMap.updateCanvas();
 }
 
-var terrainMap = new Terrain();
+var StartEndMap = new StartEnd();

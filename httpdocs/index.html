@@ -33,20 +33,36 @@
 	        
 			<div class="row">
 				<div class="span8">
-					<div class="canvas-maps">
-						<canvas id="canvasMap" width="770" height="350"></canvas>
+					<div class="canvas-maps loading">
+						<canvas id="canvasBackground" width="640" height="400"></canvas>
+						<canvas id="canvasMap" width="640" height="400"></canvas>
+						<canvas id="canvasFlare" width="640" height="400"></canvas>
 					</div>
 				</div>
 				<div class="span4">
 					<form>
 						<fieldset>
-							<legend>Legend</legend>
-							<label>Start Location</label>
-							<input type="text" placeholder="0-76, 0-34">
-							<label>End Location</label>
-							<input type="text" placeholder="0-76, 0-34">
-							<span class="help-block">...</span>
-							<button type="submit" class="btn" id="updateMap">Update Map</button>
+							<legend>Movement</legend>
+							<label>Start Latitude</label>
+								<input type="text" id="startLat" placeholder="51.5171" value="51.5171">
+							<label>Start Longitude</label>
+								<input type="text" id="startLng" placeholder="0.1062" value="0.1062">
+							<label>End Latitude</label>
+								<input type="text" id="endLat" placeholder="51.6171" value="51.6171">
+							<label>End Longitude</label>
+								<input type="text" id="endLng" placeholder="0.1062" value="0.1062">
+						</fieldset>
+						<button type="button" class="btn" id="updateMap">Update Map</button>
+					</form>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="span8">
+					<form>
+						<fieldset>
+							<legend>Time</legend>
+							<input id="time" type="range"/> 00h 30m
 						</fieldset>
 					</form>
 				</div>
@@ -57,27 +73,37 @@
 					<div class="tabbable"> <!-- Only required for left/right tabs -->
 					  <ul class="nav nav-tabs">
 					    <li class="active"><a href="#tab1" data-toggle="tab">Semantic Options</a></li>
-					    <li><a href="#tab2" data-toggle="tab">Movement Options</a></li>
+					    <li><a href="#tab2" data-toggle="tab">Visual Options</a></li>
+					    <li><a href="#tab3" data-toggle="tab">Movement Options</a></li>
 					  </ul>
 					  <div class="tab-content">
 					    <div class="tab-pane active" id="tab1">
 							<form>
 								<fieldset>
 									<label class="checkbox">
-									<input type="checkbox" checked="checked" id="terrainCBX"> Terrain (Green on Map)
+										<input type="checkbox" checked="checked" id="terrainCBX"> Terrain (Select/Unselect All)
+									</label>
+									<ul id="terrainOptions">
+										<li><label class="checkbox">
+											<input type="checkbox" checked="checked" id="climbCBX"> Climb (Dark Green on Map)
+										</label></li>
+										<li><label class="checkbox">
+											<input type="checkbox" checked="checked" id="buildingsCBX"> Buildings (Brown on Map)
+										</label></li>
+										<li><label class="checkbox">
+											<input type="checkbox" checked="checked" id="waterCBX"> Water (Blue on Map)
+										</label></li>
+										<li><label class="checkbox">
+											<input type="checkbox" checked="checked" id="roadsCBX"> Roads (Grey on Map)
+										</label></li>
+									</ul>
+									<label class="checkbox">
+										<input type="checkbox" id="weatherCBX"> Weather (Light Blue on Map)
 									</label>
 									<label class="checkbox">
-									<input type="checkbox" checked="checked" id="weatherCBX"> Weather (Blue on Map)
+										<input type="checkbox" id="minesCBX"> Mines (Black in Map)
 									</label>
-									<label class="checkbox">
-									<input type="checkbox" id="minesCBX"> Mines (Black in Map)
-									</label>
-									<label class="checkbox">
-									<input type="checkbox" id="gridDotCBX"> Grid (Dotted)
-									</label>
-									<label class="checkbox">
-									<input type="checkbox" id="gridCBX"> Grid (Squares)
-									</label>
+									
 								</fieldset>
 							</form>
 					    </div>
@@ -85,10 +111,28 @@
 					    	<form>
 								<fieldset>
 									<label class="checkbox">
-										<input type="checkbox"> Land
+										<input type="checkbox" id="bgMapCBX"> Background Map
 									</label>
 									<label class="checkbox">
-										<input type="checkbox"> Water
+										<input type="checkbox" checked="checked" id="startendCBX"> Start / End Points 
+									</label>
+									<label class="checkbox">
+										<input type="checkbox" id="gridDotCBX"> Grid (Dotted)
+									</label>
+									<label class="checkbox">
+										<input type="checkbox" id="gridCBX"> Grid (Squares)
+									</label>
+								</fieldset>
+							</form>
+					    </div>
+					    <div class="tab-pane" id="tab3">
+					    	<form>
+								<fieldset>
+									<label class="checkbox">
+										<input type="checkbox" checked="checked"> Land
+									</label>
+									<label class="checkbox">
+										<input type="checkbox" checked="checked"> Water
 									</label>
 								</fieldset>
 							</form>

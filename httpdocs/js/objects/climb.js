@@ -1,31 +1,30 @@
-var Terrain = function(){
+var Climb = function(){
 	this.image = null;
 	
 	// When this object is done, run the next object via cal
 	this.callback = function(){};
 }
 
-Terrain.prototype.getFillStyle = function(dangerLevel){
+Climb.prototype.getFillStyle = function(dangerLevel){
 	return 'rgba(0,255,0,'+dangerLevel+')';
 }
 
 /**
  *  Run this function when you want to update the map.
  */
-Terrain.prototype.updateCanvas = function(){
+Climb.prototype.updateCanvas = function(){
 	this.image = new Image();
-	this.image.onload = function(){terrainMap.analyse();};
+	this.image.onload = function(){climbMap.analyse();};
 	this.image.src = this.getGMapURL();
-		
 }
 
 /**
  * Gets the static maps URL
  */
-Terrain.prototype.getGMapURL = function(){
+Climb.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
-	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.man_made|visibility:simplified|color:0x00FF00&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&style=feature:water|visibility:simplified&sensor=false&markers='
+	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&style=visibility:off&style=feature:landscape.natural.terrain|visibility:simplified|color:0x40ff30&sensor=false&markers='
 	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
 	+latLngs.start.lat.value+','+latLngs.start.lng.value
 	+'&markers='
@@ -33,9 +32,8 @@ Terrain.prototype.getGMapURL = function(){
 	+latLngs.end.lat.value+','+latLngs.end.lng.value);
 }
 
-
-
-Terrain.prototype.analyse = function(){
+Climb.prototype.analyse = function(){
+	
 	// Create a tempory clean canvas.
 	this.canvas = document.createElement('canvas');
 	this.canvas.width = 640;
@@ -51,20 +49,15 @@ Terrain.prototype.analyse = function(){
 	
 	pix = pix.data;
 	
-	var popPixel = {};
+	//debugger;
 	
-	/*
-	if(popPixel[pix[i+1]]){
-		popPixel[pix[i+1]]++;
-	} else {
-		popPixel[pix[i+1]] = 1;
-	}
-	*/
+	
+	var popPixel = {};
 	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
 		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
-			
+			;
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
 			y = parseInt(pixelPos / 640);
@@ -79,8 +72,8 @@ Terrain.prototype.analyse = function(){
 	this.callback();
 }
 
-Terrain.prototype.initialize = function(){
-	terrainMap.updateCanvas();
+Climb.prototype.initialize = function(){
+	climbMap.updateCanvas();
 }
 
-var terrainMap = new Terrain();
+var climbMap = new Climb();
