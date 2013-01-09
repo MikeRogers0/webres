@@ -24,11 +24,10 @@ StartEnd.prototype.updateCanvas = function(){
 }
 
 StartEnd.prototype.setPoints = function(callback){
+	this.callback = callback;
 	this.image = new Image();
 	this.image.onload = function(){StartEndMap.analyse();};
 	this.image.src = this.getGMapURL();
-	
-	callback();
 }
 
 /**

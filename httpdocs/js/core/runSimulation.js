@@ -74,6 +74,8 @@ var runSimulation = function(){
 	
 		StartEndMap.setPoints(function(){
 			// Do the dijkstras stuff here.
+			
+			//debugger;
 			findRoute(dijkstras.start.x, dijkstras.start.y, dijkstras.end.x, dijkstras.end.y);
 			
 			

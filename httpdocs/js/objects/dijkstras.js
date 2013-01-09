@@ -36,29 +36,24 @@ Dijkstras.prototype.initialize = function(){
 
 dijkstras = new Dijkstras();
 
+// Set a bunch of global variables 
+var graph, adj, currentSquare, startX, startY, endX, endY, map, xLimit, yLimit, arrayPos, posX, width, height, posX, posY, count, _id, adj;
 
-
-
-
-
-var graph; //canvas map
-var adj = new Array(); //array of all possible 'next' nodes
-
-var dijkstrasrunSimulation = function(){
+function buildGraphMatrix(){
 	
 	// Do the dijkstras stuff here.
 
 	// set dimensions
-	var map = $('#canvasMap');
-	var width = map.width()/10
-	var height = map.height()/10;
-	var posX = 5;
-	var posY = 5;
-	var count = 0;
-	var _id = 1;
+	map = $('#canvasMap');
+	width = map.width()/10
+	height = map.height()/10;
+	posX = 5;
+	posY = 5;
+	count = 0;
+	_id = 1;
 	
 	//populate graph
-	var graph = new Array(height);
+	graph = new Array(height);
 	
 	// Rebuild graph as 2 bimensional array of objects
 	for(i=0;i<width;i++){
@@ -99,28 +94,20 @@ function findIndex(x, y){
 	}
 }
 
-function validateInputs(sx, sy, fx, fy){
-	//validate user inputs
-	
-}
-
 //Main route finding method
 function findRoute(sx, sy, fx, fy){
-
-	validateInputs(sx, sy, fx, fy);
 	
 	//get graph data
-	var graph = dijkstrasrunSimulation();
+	graph = buildGraphMatrix();
 	
-	var currentSquare;
-	var startX = sx; //between 0 - 76
-	var startY = sy; //between 0 - 34
-	var endX = fx; //between 0 - 76
-	var endY = fy; //between 0 - 34
-	var map = $('#canvasMap');
-	var xLimit = map.width()/10-1;
-	var yLimit = map.height()/10-1;
-	var arrayPos; //current square array position
+	startX = parseInt(sx / 10); //between 0 - 76
+	startY = parseInt(sy / 10); //between 0 - 34
+	endX = parseInt(fx / 10); //between 0 - 76
+	endY = parseInt(fy / 10); //between 0 - 34
+	map = $('#canvasMap');
+	xLimit = map.width()/10-1;
+	yLimit = map.height()/10-1;
+	adj = [];
 	
 	
 	
