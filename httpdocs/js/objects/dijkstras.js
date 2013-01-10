@@ -37,7 +37,7 @@ Dijkstras.prototype.initialize = function(){
 dijkstras = new Dijkstras();
 
 // Set a bunch of global variables 
-var graph, adj, currentSquare, startX, startY, endX, endY, map, xLimit, yLimit, arrayPos, posX, width, height, posX, posY, count, _id, adj;
+var graph, adj, currentSquare, startX, startY, endX, endY, map, xLimit, yLimit, arrayPos, posX, width, height, posX, posY, count, _id, adj, distance;
 
 function buildGraphMatrix(){
 	
@@ -45,12 +45,16 @@ function buildGraphMatrix(){
 
 	// set dimensions
 	map = $('#canvasMap');
-	width = map.width()/10
-	height = map.height()/10;
-	posX = 5;
-	posY = 5;
+	distance = 10;//DO NOT PUT LOWER THAN 5!!!!!!!
+	width = Math.round(map.width()/distance);
+	height = map.height()/distance;
+	posX = 1;
+	posY = 1;
 	count = 0;
 	_id = 1;
+	
+	
+	
 	
 	//populate graph
 	graph = new Array(height);
@@ -58,20 +62,20 @@ function buildGraphMatrix(){
 	// Rebuild graph as 2 bimensional array of objects
 	for(i=0;i<width;i++){
 		graph[i] = new Array(height);
-		posX = 5;
+		posX = distance;
 		for(j=0;j<height;j++){
 			graph[i][j] = {};
 			graph[i][j].danger = dijkstras.getDangerLevel(posX, posY);
 			graph[i][j]._id = _id;
 			graph[i][j].x = i;
-			graph[i][j].xPix = i*10+5;
+			graph[i][j].xPix = i*distance;
 			graph[i][j].y = j;
-			graph[i][j].yPix = j*10+5;
+			graph[i][j].yPix = j*distance;
 			graph[i][j].val = Infinity;
 			_id += 1;
-			posX += 10;
+			posX += distance;
 		}
-		posY += 10;
+		posY += distance;
 	}
 	return graph;
 }
@@ -100,13 +104,13 @@ function findRoute(sx, sy, fx, fy){
 	//get graph data
 	graph = buildGraphMatrix();
 	
-	startX = parseInt(sx / 10); //between 0 - 76
-	startY = parseInt(sy / 10); //between 0 - 34
-	endX = parseInt(fx / 10); //between 0 - 76
-	endY = parseInt(fy / 10); //between 0 - 34
+	startX = parseInt(sx / distance); //between 0 - 76
+	startY = parseInt(sy / distance); //between 0 - 34
+	endX = parseInt(fx / distance); //between 0 - 76
+	endY = parseInt(fy / distance); //between 0 - 34
 	map = $('#canvasMap');
-	xLimit = map.width()/10-1;
-	yLimit = map.height()/10-1;
+	xLimit = map.width()/distance-1;
+	yLimit = map.height()/distance-1;
 	adj = [];
 	
 	
@@ -288,8 +292,8 @@ function findRoute(sx, sy, fx, fy){
 		
 		//draw path to parent
 		canvas.ctx.beginPath();
-		canvas.ctx.moveTo(path.x*10+5, path.y*10+5);
-		canvas.ctx.lineTo(pathParent[0]*10+5, pathParent[1]*10+5);
+		canvas.ctx.moveTo(path.x*distance, path.y*distance);
+		canvas.ctx.lineTo(pathParent[0]*distance, pathParent[1]*distance);
 		canvas.ctx.stroke();
 		
 		//set parent as current

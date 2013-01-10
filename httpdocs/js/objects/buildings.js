@@ -62,7 +62,7 @@ Building.prototype.analyse = function(){
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = this.getFillStyle('0.2');
+			canvas.ctx.fillStyle = this.getFillStyle('0.2');//set danger level
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
 		
