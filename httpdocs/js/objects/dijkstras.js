@@ -27,7 +27,7 @@ Dijkstras.prototype.getDangerLevel = function(x,y){
 	 * So when we ask for the 4th (0,1,2,3) bit of data, we get the alpha channel of the 1st pixel
 	 * but on a scale of 0 - 255, so thats why we return the crazy bit of code below.
 	 */
-	return (imgData.data[3] / 255);
+	return (imgData.data[3]);
 }
 
 Dijkstras.prototype.initialize = function(){
