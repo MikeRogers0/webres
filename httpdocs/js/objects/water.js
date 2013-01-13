@@ -57,7 +57,7 @@ Water.prototype.analyse = function(){
 	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
-		if(pix[i+1] == 255){ //If we are looking at the colour green, draw it on the canvas.
+		if(pix[i+1] == 255 || pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
 			
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
