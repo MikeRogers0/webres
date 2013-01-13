@@ -24,10 +24,10 @@ StartEnd.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
 	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&sensor=false&style=visibility:off&markers='
-	+'icon:http://webres.fullondesign.co.uk/img/p-blue.png%7C'
+	+'icon:http://webres.fullondesign.co.uk/img/true-blue.png%7C'
 	+encodeURIComponent(latLngs.start.value)
 	+'&markers='
-	+'icon:http://webres.fullondesign.co.uk/img/p-red.png%7C'
+	+'icon:http://webres.fullondesign.co.uk/img/true-red.png%7C'
 	+encodeURIComponent(latLngs.end.value));
 }
 
@@ -55,7 +55,7 @@ StartEnd.prototype.analyse = function(){
 	// Go through each of the pixles
 	for(var i = 0, n = pix.length; i < n; i += 4) {
 		// Check if it's red or blue
-		if((pix[i] == 252 || pix[i+2] == 248) && pix[i+3] == 255){ // If it's the same colour as the pixel we put in there.
+		if((pix[i] == 255 && pix[i+1] == 0 && pix[i+2] == 0) || (pix[i] == 0 && pix[i+1] == 0 && pix[i+2] == 255) && pix[i+3] == 255){ // If it's the same colour as the pixel we put in there.
 			
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
@@ -63,21 +63,21 @@ StartEnd.prototype.analyse = function(){
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 			
 			// Set the dijkstras variables.
-			if(pix[i+2] == 248){
+			if(pix[i+2] == 255){
 				dijkstras.start = {x:x,y:y};
 			} else {
 				dijkstras.end = {x:x,y:y};
 			}
 		}
 		
-		if(popPixel[pix[i]]){
-			popPixel[pix[i]]++;
+		if(popPixel[pix[i]+','+pix[i+1]+','+pix[i+2]]){
+			popPixel[pix[i]+','+pix[i+1]+','+pix[i+2]]++;
 		} else {
-			popPixel[pix[i]] = 1;
+			popPixel[pix[i]+','+pix[i+1]+','+pix[i+2]] = 1;
 		}
 	}
 	
-	debugger;
+	//debugger;
 	
 	this.callback();
 }
