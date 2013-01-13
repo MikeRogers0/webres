@@ -54,6 +54,7 @@ StartEnd.prototype.analyse = function(){
 	
 	// Go through each of the pixles
 	for(var i = 0, n = pix.length; i < n; i += 4) {
+		// Check if it's red or blue
 		if((pix[i] == 252 || pix[i+2] == 248) && pix[i+3] == 255){ // If it's the same colour as the pixel we put in there.
 			
 			// Set the x & y
