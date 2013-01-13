@@ -24,10 +24,10 @@ StartEnd.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
 	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&sensor=false&style=visibility:off&markers='
-	+'icon:http://webres.fullondesign.co.uk/img/pix-blue.png%7C'
+	+'icon:http://webres.fullondesign.co.uk/img/p-blue.png%7C'
 	+encodeURIComponent(latLngs.start.value)
 	+'&markers='
-	+'icon:http://webres.fullondesign.co.uk/img/pix-red.png%7C'
+	+'icon:http://webres.fullondesign.co.uk/img/p-red.png%7C'
 	+encodeURIComponent(latLngs.end.value));
 }
 
