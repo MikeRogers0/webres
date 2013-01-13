@@ -24,18 +24,18 @@ StartEnd.prototype.getGMapURL = function(){
 	// To get the map URL's I used: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
 	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&sensor=false&style=visibility:off&markers='
-	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/blue.png%7C'
+	+'icon:http://webres.fullondesign.co.uk/img/pix-blue.png%7C'
 	+encodeURIComponent(latLngs.start.value)
 	+'&markers='
-	+'color:red%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/red.png%7C'
+	+'icon:http://webres.fullondesign.co.uk/img/pix-red.png%7C'
 	+encodeURIComponent(latLngs.end.value));
 }
 
 
 
 StartEnd.prototype.analyse = function(){
-	//this.canvas = null;
-	//his.ctx = null;
+	this.canvas = null;
+	this.ctx = null;
 
 	// Create a tempory clean canvas.
 	this.canvas = document.createElement('canvas');
@@ -52,9 +52,9 @@ StartEnd.prototype.analyse = function(){
 	pix = pix.data;
 	var popPixel = {};
 	
-	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
+	// Go through each of the pixles
 	for(var i = 0, n = pix.length; i < n; i += 4) {
-		if((pix[i] == 252 || pix[i+2] == 248) && pix[i+3] == 255){ //If we are looking at the colour green, draw it on the canvas.
+		if((pix[i] == 252 || pix[i+2] == 248) && pix[i+3] == 255){ // If it's the same colour as the pixel we put in there.
 			
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
@@ -67,6 +67,12 @@ StartEnd.prototype.analyse = function(){
 			} else {
 				dijkstras.end = {x:x,y:y};
 			}
+		}
+		
+		if(popPixel[pix[i]]){
+			popPixel[pix[i]]++;
+		} else {
+			popPixel[pix[i]] = 1;
 		}
 	}
 	
