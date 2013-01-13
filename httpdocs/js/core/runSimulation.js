@@ -24,10 +24,6 @@ var semanticData = {
 	//	elm: document.querySelector('#minesCBX'),
 	//	object: new Mines()
 	//},
-	startend: {
-		elm: document.querySelector('#minesCBX'),
-		object: StartEndMap
-	},
 	grid: {
 		elm: document.querySelector('#gridCBX'),
 		object: GridMap
@@ -43,13 +39,12 @@ var semanticData = {
  */
 var runSimulation = function(){
 	// Turn on the loading gif
-	document.querySelector('.canvas-maps').className = "canvas-maps loading";
+	//document.querySelector('.canvas-maps').className = "canvas-maps loading";
 
-	// Clear the combined map
+	// Clear the combined maps
+	background.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
 	canvas.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
-	
-	// Reset the plotting points
-	semanticData.startend.object.reset();
+	flare.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
 	
 	
 	// Itterate through each canvas updating their maps via the callback.

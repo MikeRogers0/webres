@@ -14,12 +14,6 @@ var flare = {
 };
 
 var latLngs = {
-	start: {
-		lng:document.getElementById('startLng'),
-		lat:document.getElementById('startLat')
-	},
-	end:{
-		lng:document.getElementById('endLng'),
-		lat:document.getElementById('endLat')
-	}
+	start: document.getElementById('start'),
+	end: document.getElementById('end')
 }

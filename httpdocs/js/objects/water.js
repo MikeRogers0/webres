@@ -27,15 +27,17 @@ Water.prototype.getGMapURL = function(){
 	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
 	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&style=visibility:off&style=feature:water|visibility:simplified|color:0x40ff30&sensor=false&markers='
 	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
-	+latLngs.start.lat.value+','+latLngs.start.lng.value
+	+encodeURIComponent(latLngs.start.value)
 	+'&markers='
 	+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
-	+latLngs.end.lat.value+','+latLngs.end.lng.value);
+	+encodeURIComponent(latLngs.end.value));
 }
 
 
 
 Water.prototype.analyse = function(){
+	this.canvas = null;
+	
 	// Create a tempory clean canvas.
 	this.canvas = document.createElement('canvas');
 	this.canvas.width = 640;

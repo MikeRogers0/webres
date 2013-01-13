@@ -1,12 +1,5 @@
 var StartEnd = function(){
 	this.image = null;
-	this.showOnCanvas = false;
-	this.callback = function(){};
-}
-
-StartEnd.prototype.reset = function(){
-	this.image = null;
-	this.showOnCanvas = false;
 	this.callback = function(){};
 }
 
@@ -17,12 +10,6 @@ StartEnd.prototype.getFillStyle = function(dangerLevel){
 /**
  *  Run this function when you want to update the map.
  */
-StartEnd.prototype.updateCanvas = function(){
-	this.showOnCanvas = true;
-	
-	this.callback();
-}
-
 StartEnd.prototype.setPoints = function(callback){
 	this.callback = callback;
 	this.image = new Image();
@@ -38,21 +25,23 @@ StartEnd.prototype.getGMapURL = function(){
 	// &style=feature:landscape.man_made|visibility:simplified|color:0x6E1B00 < this is buildings.
 	return gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=roadmap&sensor=false&style=visibility:off&markers='
 	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/blue.png%7C'
-	+latLngs.start.lat.value+','+latLngs.start.lng.value
+	+encodeURIComponent(latLngs.start.value)
 	+'&markers='
 	+'color:red%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/red.png%7C'
-	+latLngs.end.lat.value+','+latLngs.end.lng.value);
+	+encodeURIComponent(latLngs.end.value));
 }
 
 
 
 StartEnd.prototype.analyse = function(){
+	//this.canvas = null;
+	//his.ctx = null;
+
 	// Create a tempory clean canvas.
 	this.canvas = document.createElement('canvas');
 	this.canvas.width = 640;
 	this.canvas.height = 400;
 	this.ctx = this.canvas.getContext('2d');
-	
 	
 	// Draw the loaded on image onto the temp canvas. Load it as a pattern to get around CORS.
 	this.ctx.drawImage(this.image, 0,0);
@@ -61,6 +50,7 @@ StartEnd.prototype.analyse = function(){
 	var pix = this.ctx.getImageData(0,0, this.canvas.width, this.canvas.height);
 	
 	pix = pix.data;
+	var popPixel = {};
 	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
@@ -79,6 +69,9 @@ StartEnd.prototype.analyse = function(){
 			}
 		}
 	}
+	
+	debugger;
+	
 	this.callback();
 }
 
