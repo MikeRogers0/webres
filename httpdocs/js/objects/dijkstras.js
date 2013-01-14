@@ -45,7 +45,7 @@ function buildGraphMatrix(){
 
 	// set dimensions
 	map = $('#canvasMap');
-	distance = 10;//DO NOT PUT LOWER THAN 5!!!!!!!
+	distance = 4;//DO NOT PUT LOWER THAN 5!!!!!!!
 	width = Math.round(map.width()/distance);
 	height = map.height()/distance;
 	posX = 1;
@@ -291,10 +291,10 @@ function findRoute(sx, sy, fx, fy){
 		pathParent = getParentCoords(path.x, path.y, path.p);
 		
 		//draw path to parent
-		canvas.ctx.beginPath();
-		canvas.ctx.moveTo(path.x*distance, path.y*distance);
-		canvas.ctx.lineTo(pathParent[0]*distance, pathParent[1]*distance);
-		canvas.ctx.stroke();
+		canvasRoutes.ctx.beginPath();
+		canvasRoutes.ctx.moveTo(path.x*distance, path.y*distance);
+		canvasRoutes.ctx.lineTo(pathParent[0]*distance, pathParent[1]*distance);
+		canvasRoutes.ctx.stroke();
 		
 		//set parent as current
 		path.x = pathParent[0];

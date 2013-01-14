@@ -32,23 +32,25 @@
         <div class="container">
 	        
 			<div class="row">
-				<div class="span8">
+				<div class="span7">
 					<div class="canvas-maps">
 						<canvas id="canvasBackground" width="640" height="400"></canvas>
 						<canvas id="canvasMap" width="640" height="400"></canvas>
+						<canvas id="canvasRoutes" width="640" height="400"></canvas>
 						<canvas id="canvasFlare" width="640" height="400"></canvas>
 					</div>
 				</div>
-				<div class="span4">
-					<form>
+				<div class="span5">
+					<form action="#">
+						<legend>Convoy 1</legend>
 						<fieldset>
-							<legend>Movement</legend>
 							<label>Start</label>
-								<input type="text" id="start" placeholder="51.5171, 0.1062" value="London">
+								<input type="text" id="start" placeholder="51.5171, 0.1062" value="po4">
 							<label>End</label>
-								<input type="text" id="end" placeholder="51.6171, 0.1062" value="Paris">
+								<input type="text" id="end" placeholder="51.6171, 0.1062" value="po1">
 						</fieldset>
 						<fieldset>
+							<p>Abilities</p>
 							<label class="checkbox">
 								<input type="checkbox" checked="checked"> Land
 							</label>
@@ -56,10 +58,13 @@
 								<input type="checkbox" checked="checked"> Water
 							</label>
 						</fieldset>
+						<hr>
+						<legend>Convoy 2</legend>
 						<fieldset>
 							<button type="button" class="btn" id="updateMap">Update Map</button>
 						</fieldset>
 					</form>
+					<a href="#" class="btn" id="downloadMap" target="_blank" href="#">Download Map</a>
 				</div>
 			</div>
 			
@@ -85,9 +90,7 @@
 					    <div class="tab-pane active" id="tab1">
 							<form>
 								<fieldset>
-									<label class="checkbox">
-										<input type="checkbox" checked="checked" id="terrainCBX"> Terrain (Select/Unselect All)
-									</label>
+									<p>Terrain Options</p>
 									<ul id="terrainOptions">
 										<li><label class="checkbox">
 											<input type="checkbox" checked="checked" id="climbCBX"> Climb (Dark Green on Map)

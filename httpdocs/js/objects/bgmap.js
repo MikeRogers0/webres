@@ -12,11 +12,11 @@ var bgMap = function(){
 bgMap.prototype.updateCanvas = function(){
 	// Set the google maps URL up.
 	var gStaticMapURL = 'gmap.php?url='+encodeURIComponent('size=640x400&maptype=terrain&style=feature:all&sensor=false&markers='
-	//+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
-	+latLngs.start.value
+	+'color:blue%7Clabel:S%7C%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
+	+encodeURIComponent(latLngs.start.value)
 	+'&markers='
-	//+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
-	+latLngs.end.value);
+	+'color:blue%7Clabel:E%7Cshadow:false%7Cicon:http://webres.fullondesign.co.uk/img/pixel.png%7C'
+	+encodeURIComponent(latLngs.end.value));
 	
 	this.image = new Image();
 	// Now load that image into the DOM

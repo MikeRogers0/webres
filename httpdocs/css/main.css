@@ -48,8 +48,11 @@ body {
 	#canvasMap{
 		z-index: 10;
 	}
-	#canvasFlare{
+	#canvasRoutes{
 		z-index: 15;
+	}
+	#canvasFlare{
+		z-index: 20;
 	}
 	
 #terrainOptions li{

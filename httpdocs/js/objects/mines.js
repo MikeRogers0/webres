@@ -1,12 +1,9 @@
 var Mines = function(){
-	var self = this;
-	// Set lat/lng from the input fields.
-	self.lat = null;
-	self.lng = null;
+	this.callback = function(){};
 }
 
 Mines.prototype.getFillStyle = function(dangerLevel){
-	return 'rgba(0,0,0,'+dangerLevel+')';
+	return 'rgba(0,0,0,0.8)';
 }
 
 /**
@@ -14,18 +11,9 @@ Mines.prototype.getFillStyle = function(dangerLevel){
  */
 Mines.prototype.updateCanvas = function(){
 	// Reset the lap/lng.
-	self.load();
-	self.draw();
-}
-
-/**
- *  Load up the terrain info from a source on the internet.
- */
-Mines.prototype.load = function(){
-	// Do the API call & magic *Shiny eyes*.
+	this.draw();
 	
-	// For now I'm ganna draw a bunch of circles.
-	
+	this.callback();
 }
 
 /**
@@ -33,21 +21,27 @@ Mines.prototype.load = function(){
  */
 Mines.prototype.draw = function(){
 	// We are going to make some areas which varing dangers.
-	canvas.ctx.fillStyle = self.getFillStyle(0.2);
+	canvas.ctx.fillStyle = this.getFillStyle(0.5);
 	canvas.ctx.beginPath();
 	canvas.ctx.arc(175, 75, 40, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();
 	canvas.ctx.fill();
 	
-	canvas.ctx.fillStyle = self.getFillStyle(0.2);
+	canvas.ctx.fillStyle = this.getFillStyle(0.2);
 	canvas.ctx.beginPath();
 	canvas.ctx.arc(75, 175, 40, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();
 	canvas.ctx.fill();
 	
-	canvas.ctx.fillStyle = self.getFillStyle(0.3);
+	canvas.ctx.fillStyle = this.getFillStyle(0.3);
 	canvas.ctx.beginPath();
 	canvas.ctx.arc(375, 175, 10, 0, Math.PI*2, true); 
 	canvas.ctx.closePath();
 	canvas.ctx.fill();
 }
+
+Mines.prototype.initialize = function(){
+	minesMap.updateCanvas();
+}
+
+var minesMap = new Mines();

@@ -13,6 +13,11 @@ var flare = {
 	ctx: document.getElementById('canvasFlare').getContext('2d')
 };
 
+var canvasRoutes = {
+	elm: document.getElementById('canvasRoutes'),
+	ctx: document.getElementById('canvasRoutes').getContext('2d')
+};
+
 var latLngs = {
 	start: document.getElementById('start'),
 	end: document.getElementById('end')

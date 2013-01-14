@@ -16,14 +16,18 @@ var semanticData = {
 		elm: document.querySelector('#waterCBX'),
 		object: waterMap
 	},
+	roads: {
+		elm: document.querySelector('#roadsCBX'),
+		object: roadsMap
+	},
 	weather: {
 		elm: document.querySelector('#weatherCBX'),
 		object: WeatherMap
 	},
-	//mines: {
-	//	elm: document.querySelector('#minesCBX'),
-	//	object: new Mines()
-	//},
+	mines: {
+		elm: document.querySelector('#minesCBX'),
+		object: minesMap
+	},
 	grid: {
 		elm: document.querySelector('#gridCBX'),
 		object: GridMap
@@ -45,7 +49,11 @@ var runSimulation = function(){
 	background.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
 	canvas.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
 	flare.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
+	canvasRoutes.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
 	
+	// Set the base danger level on the canvas to a .4
+	canvas.ctx.fillStyle = "rgba(209, 222, 186, 0.4)";
+	canvas.ctx.fillRect(0, 0, 640, 400);
 	
 	// Itterate through each canvas updating their maps via the callback.
 	var lastSemanticObject = null;
@@ -76,6 +84,18 @@ var runSimulation = function(){
 			
 			// Now remove the loading gif.
 			document.querySelector('.canvas-maps').className = "canvas-maps";	
+			
+			// Merge all the canvases together
+			var superCanvas = document.createElement('canvas');
+			superCanvas.width = 640;
+			superCanvas.height = 400;
+			var superCanvasContext = superCanvas.getContext('2d');
+			
+			//superCanvasContext.drawImage(background.elm, 0, 0);
+			superCanvasContext.drawImage(canvas.elm, 0, 0);
+			superCanvasContext.drawImage(canvasRoutes.elm, 0, 0);
+			
+			document.getElementById('downloadMap').href = superCanvas.toDataURL();
 		});
 		
 	};

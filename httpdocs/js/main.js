@@ -7,6 +7,7 @@ head.js(
 	'js/objects/climb.js?'+new Date() * 1, // climb object
 	'js/objects/buildings.js?'+new Date() * 1, // buildings object
 	'js/objects/water.js?'+new Date() * 1, // water object
+	'js/objects/roads.js?'+new Date() * 1, // water object
 	'js/objects/weather.js?'+new Date() * 1,  // weather object
 	'js/objects/mines.js?'+new Date() * 1,  // mines object
 	'js/objects/griddot.js?'+new Date() * 1, // gridDot object
