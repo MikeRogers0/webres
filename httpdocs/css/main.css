@@ -45,11 +45,15 @@ body {
 		.canvas-maps.loading > canvas{
 			opacity: 0;
 		}
+	#canvasBackground{
+		opacity: 0.4;
+		z-index: 30;
+	}
 	#canvasMap{
 		z-index: 10;
 	}
 	#canvasRoutes{
-		z-index: 15;
+		z-index: 40;
 	}
 	#canvasFlare{
 		z-index: 20;

@@ -27,7 +27,13 @@ bgMap.prototype.updateCanvas = function(){
 bgMap.prototype.draw = function(){
 	background.ctx.drawImage(this.image, 0, 0);
 	
+	this.cleanUp();
+	
 	this.callback();
+}
+
+bgMap.prototype.cleanUp = function(){
+	this.image = null;
 }
 
 bgMap.prototype.initialize = function(){

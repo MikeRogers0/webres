@@ -1,12 +1,14 @@
 var Building = function(){
 	this.image = null;
+	this.canvas = null;
+	this.ctx = null;
 	
 	// When this object is done, run the next object via cal
 	this.callback = function(){};
 }
 
-Building.prototype.getFillStyle = function(dangerLevel){
-	return 'rgba(160,82,45,'+dangerLevel+')';
+Building.prototype.getFillStyle = function(){
+	return 'rgba(160,82,45,0.9)';
 }
 
 /**
@@ -54,6 +56,8 @@ Building.prototype.analyse = function(){
 	
 	var popPixel = {};
 	
+	canvas.ctx.fillStyle = this.getFillStyle();//set danger level
+	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
 		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
@@ -63,13 +67,19 @@ Building.prototype.analyse = function(){
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = this.getFillStyle('1');//set danger level
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
 		
 	}
 	
+	this.cleanUp();
+	
 	this.callback();
+}
+
+Building.prototype.cleanUp = function(){
+	this.image = null;
+	this.canvas = null;
 }
 
 Building.prototype.initialize = function(){

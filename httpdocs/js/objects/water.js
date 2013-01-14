@@ -1,12 +1,14 @@
 var Water = function(){
 	this.image = null;
+	this.canvas = null;
+	this.ctx = null;
 	
 	// When this object is done, run the next object via cal
 	this.callback = function(){};
 }
 
-Water.prototype.getFillStyle = function(dangerLevel){
-	return 'rgba(173,216,230,'+dangerLevel+')';
+Water.prototype.getFillStyle = function(){
+	return 'rgba(173,216,230,1)';
 }
 
 /**
@@ -55,6 +57,7 @@ Water.prototype.analyse = function(){
 	
 	var popPixel = {};
 	
+	canvas.ctx.fillStyle = this.getFillStyle();//set danger level
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
 		if(pix[i+1] == 255 || pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
@@ -64,12 +67,24 @@ Water.prototype.analyse = function(){
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = this.getFillStyle('1');//set danger level
-			canvas.ctx.fillRect(x, y, 1, 1);
+			if(document.getElementById('waterAbility').checked){
+				canvas.ctx.clearRect(x, y, 1, 1);
+			} else {
+				canvas.ctx.fillRect(x, y, 1, 1);
+			}
+			
 		}
 	}
 	
+	this.cleanUp();
+	
 	this.callback();
+}
+
+Water.prototype.cleanUp = function(){
+	this.image = null;
+	this.canvas = null;
+	this.ctx = null;
 }
 
 Water.prototype.initialize = function(){

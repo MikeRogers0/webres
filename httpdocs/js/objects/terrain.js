@@ -1,5 +1,7 @@
 var Terrain = function(){
 	this.image = null;
+	this.canvas = null;
+	this.ctx = null;
 	
 	// When this object is done, run the next object via cal
 	this.callback = function(){};
@@ -63,6 +65,7 @@ Terrain.prototype.analyse = function(){
 	}
 	*/
 	
+	canvas.ctx.fillStyle = this.getFillStyle('0.2');
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
 		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
@@ -72,13 +75,21 @@ Terrain.prototype.analyse = function(){
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = this.getFillStyle('0.2');
+			
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
 		
 	}
 	
+	this.cleanUp();
+	
 	this.callback();
+}
+
+Terrain.prototype.cleanUp = function(){
+	this.image = null;
+	this.canvas = null;
+	this.ctx = null;
 }
 
 Terrain.prototype.initialize = function(){

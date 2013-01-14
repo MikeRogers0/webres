@@ -5,8 +5,8 @@ var Climb = function(){
 	this.callback = function(){};
 }
 
-Climb.prototype.getFillStyle = function(dangerLevel){
-	return 'rgba(0,255,0,'+dangerLevel+')';
+Climb.prototype.getFillStyle = function(){
+	return 'rgba(0,255,0,0.4)';
 }
 
 /**
@@ -57,18 +57,24 @@ Climb.prototype.analyse = function(){
 	
 	// Go through each of the pixles and if it's got the green we are looking for draw it on the canvas.
 	for(var i = 0, n = pix.length; i < n; i += 4) {
-		if(pix[i+1] == 254){ //If we are looking at the colour green, draw it on the canvas.
+		if(pix[i+1] == 255){ //If we are looking at the colour green, draw it on the canvas.
 			;
 			// Set the x & y
 			pixelPos = (i / 4); // Number of pixles up to this point.
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = this.getFillStyle('0.2');//set danger level
+			canvas.ctx.fillStyle = this.getFillStyle();//set danger level
 			canvas.ctx.fillRect(x, y, 1, 1);
 		}
-		
+		if(popPixel[pix[i]+','+pix[i+1]+','+pix[i+2]]){
+			popPixel[pix[i]+','+pix[i+1]+','+pix[i+2]]++;
+		} else {
+			popPixel[pix[i]+','+pix[i+1]+','+pix[i+2]] = 1;
+		}
 	}
+	
+	//debugger;
 	
 	this.callback();
 }

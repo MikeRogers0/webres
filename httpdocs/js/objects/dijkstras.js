@@ -301,4 +301,6 @@ function findRoute(sx, sy, fx, fy){
 		path.y = pathParent[1];
 		path.p = graph[path.x][path.y].parent;
 	}
+	
+	graph = null;
 }

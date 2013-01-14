@@ -43,7 +43,7 @@ var semanticData = {
  */
 var runSimulation = function(){
 	// Turn on the loading gif
-	//document.querySelector('.canvas-maps').className = "canvas-maps loading";
+	document.querySelector('.canvas-maps').className = "canvas-maps loading";
 
 	// Clear the combined maps
 	background.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
@@ -52,7 +52,10 @@ var runSimulation = function(){
 	canvasRoutes.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
 	
 	// Set the base danger level on the canvas to a .4
-	canvas.ctx.fillStyle = "rgba(209, 222, 186, 0.4)";
+	canvas.ctx.fillStyle = "rgba(209, 222, 186, 0.8)";
+	if(document.getElementById('offroadAbility').checked){
+		canvas.ctx.fillStyle = "rgba(209, 222, 186, 0.3)";
+	}
 	canvas.ctx.fillRect(0, 0, 640, 400);
 	
 	// Itterate through each canvas updating their maps via the callback.
@@ -96,6 +99,8 @@ var runSimulation = function(){
 			superCanvasContext.drawImage(canvasRoutes.elm, 0, 0);
 			
 			document.getElementById('downloadMap').href = superCanvas.toDataURL();
+			
+			delete superCanvas;
 		});
 		
 	};
