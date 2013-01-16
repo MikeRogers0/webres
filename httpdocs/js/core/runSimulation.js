@@ -1,7 +1,6 @@
 // Set up the semantic objects.
 var semanticData = {
 	bgMap: {
-		elm: document.querySelector('#bgMapCBX'),
 		object: backgroundMap
 	},
 	climb: {
@@ -29,11 +28,9 @@ var semanticData = {
 		object: minesMap
 	},
 	grid: {
-		elm: document.querySelector('#gridCBX'),
 		object: GridMap
 	},
 	gridDot: {
-		elm: document.querySelector('#gridDotCBX'),
 		object: GridDotMap
 	}
 };
@@ -44,6 +41,11 @@ var semanticData = {
 var runSimulation = function(){
 	// Turn on the loading gif
 	document.querySelector('.canvas-maps').className = "canvas-maps loading";
+	
+	// Lock the buttons which update the map
+	document.getElementById('updateMap').disabled = true;
+	document.getElementById('downloadMap').disabled = true;
+	
 
 	// Clear the combined maps
 	background.ctx.clearRect(0, 0, canvas.elm.width, canvas.elm.height);
@@ -64,7 +66,7 @@ var runSimulation = function(){
 	
 	// Loop through the objects, listing all the enabled ones & logging the first & last objects.
 	for(i in semanticData){
-		if(semanticData[i].elm.checked){
+		if(semanticData[i].elm == undefined || (semanticData[i].elm != undefined && semanticData[i].elm.checked)){
 			if(lastSemanticObject == null){
 				firstSemanticObject = i;
 			} else {
@@ -86,7 +88,9 @@ var runSimulation = function(){
 			
 			
 			// Now remove the loading gif.
-			document.querySelector('.canvas-maps').className = "canvas-maps";	
+			document.querySelector('.canvas-maps').className = "canvas-maps";
+			document.getElementById('updateMap').disabled = false;
+			document.getElementById('downloadMap').disabled = false;
 			
 			// Merge all the canvases together
 			var superCanvas = document.createElement('canvas');
@@ -95,7 +99,7 @@ var runSimulation = function(){
 			var superCanvasContext = superCanvas.getContext('2d');
 			
 			//superCanvasContext.drawImage(background.elm, 0, 0);
-			superCanvasContext.drawImage(canvas.elm, 0, 0);
+			superCanvasContext.drawImage(background.elm, 0, 0);
 			superCanvasContext.drawImage(canvasRoutes.elm, 0, 0);
 			
 			document.getElementById('downloadMap').href = superCanvas.toDataURL();
@@ -111,6 +115,19 @@ var runSimulation = function(){
 
 // Add the listners
 document.querySelector('#updateMap').addEventListener('click', runSimulation, false);
-for(i in semanticData){
-	semanticData[i].elm.addEventListener('click', runSimulation, false);
-}
+
+// Add luistners for the sliders
+$('input.slider').change(function(){
+	$('#'+$(this).attr('data-target')).html($(this).val());
+	
+	if($(this).attr('data-opacity-target')){
+		$('#'+$(this).attr('data-opacity-target')).css('opacity', $(this).val() / 100);
+	}
+});
+
+$('input.slider').change();
+
+
+//for(i in semanticData){
+//	semanticData[i].elm.addEventListener('click', runSimulation, false);
+//}

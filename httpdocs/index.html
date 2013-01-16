@@ -67,7 +67,7 @@
 				</div>
 			</div>
 			
-			<div class="row">
+			<!--<div class="row">
 				<div class="span8">
 					<form>
 						<fieldset>
@@ -76,7 +76,7 @@
 						</fieldset>
 					</form>
 				</div>
-			</div>
+			</div>-->
 			
 			<div class="row">
 				<div class="span8">
@@ -84,6 +84,7 @@
 					  <ul class="nav nav-tabs">
 					    <li class="active"><a href="#tab1" data-toggle="tab">Semantic Options</a></li>
 					    <li><a href="#tab2" data-toggle="tab">Visual Options</a></li>
+					    <li><a href="#tab3" data-toggle="tab">Performance Options</a></li>
 					  </ul>
 					  <div class="tab-content">
 					    <div class="tab-pane active" id="tab1">
@@ -117,15 +118,30 @@
 					    <div class="tab-pane" id="tab2">
 					    	<form>
 								<fieldset>
-									<label class="checkbox">
-										<input type="checkbox" id="bgMapCBX" checked="checked"> Background Map
+									<label for="bgMapOpacity">
+										Background Map Opacity: <span id="bgMapOpacityVisual">70</span>%
 									</label>
-									<label class="checkbox">
-										<input type="checkbox" id="gridDotCBX"> Grid (Dotted)
+									<input class="slider" type ="range" min="0" max="100" step="10" value="70" id="bgMapOpacity" data-target="bgMapOpacityVisual" data-opacity-target="canvasBackground" />
+									
+									<label for="bgMapOpacity">
+										Dangerous Estimation Opacity: <span id="dangerOpacityVisual">95</span>%
 									</label>
-									<label class="checkbox">
-										<input type="checkbox" id="gridCBX"> Grid (Squares)
+									<input class="slider" type ="range" min="0" max="100" step="10" value="95" id="dangerOpacity" data-target="dangerOpacityVisual" data-opacity-target="canvasMap" />
+									
+									<label  for="gridOpacity">
+										Grid Overlay Opacity: <span id="gridOpacityVisual">0</span>%
 									</label>
+									<input class="slider" type="range" min="0" max="100" step="10" value="0" id="gridOpacity" data-target="gridOpacityVisual" data-opacity-target="canvasFlare" />
+								</fieldset>
+							</form>
+					    </div>
+					    <div class="tab-pane" id="tab3">
+					    	<form>
+								<fieldset>
+									<label for="dijkstrasDistance">
+										Dijkstras Route Accuracy: <span id="dijkstrasDistanceVisual">8</span>/10
+									</label>
+									<input class="slider" type="range" min="2" max="10" step="2" value="8" id="dijkstrasDistance" data-target="dijkstrasDistanceVisual" /> 
 								</fieldset>
 							</form>
 					    </div>

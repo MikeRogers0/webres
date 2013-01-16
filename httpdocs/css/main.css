@@ -45,7 +45,7 @@ body {
 		.canvas-maps.loading > canvas{
 			opacity: 0;
 		}
-	#canvasBackground{
+	/*#canvasBackground{
 		opacity: 0.4;
 		z-index: 30;
 	}
@@ -57,7 +57,7 @@ body {
 	}
 	#canvasFlare{
 		z-index: 20;
-	}
+	}*/
 	
 #terrainOptions li{
 	list-style: none;

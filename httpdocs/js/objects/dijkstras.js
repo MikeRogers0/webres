@@ -45,7 +45,7 @@ function buildGraphMatrix(){
 
 	// set dimensions
 	map = $('#canvasMap');
-	distance = 4;//DO NOT PUT LOWER THAN 5!!!!!!!
+	distance = parseInt(document.getElementById('dijkstrasDistance').value);//DO NOT PUT LOWER THAN 5!!!!!!!
 	width = Math.round(map.width()/distance);
 	height = map.height()/distance;
 	posX = 1;
