@@ -43,7 +43,7 @@ body {
 		transition:opacity 0.2s linear;
 	}
 		.canvas-maps.loading > canvas{
-			opacity: 0;
+			opacity: 0!important;
 		}
 	/*#canvasBackground{
 		opacity: 0.4;
