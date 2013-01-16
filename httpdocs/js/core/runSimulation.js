@@ -44,7 +44,7 @@ var runSimulation = function(){
 	
 	// Lock the buttons which update the map
 	document.getElementById('updateMap').disabled = true;
-	document.getElementById('downloadMap').disabled = true;
+	document.getElementById('downloadMap').className = 'btn disabled';
 	
 
 	// Clear the combined maps
@@ -90,7 +90,7 @@ var runSimulation = function(){
 			// Now remove the loading gif.
 			document.querySelector('.canvas-maps').className = "canvas-maps";
 			document.getElementById('updateMap').disabled = false;
-			document.getElementById('downloadMap').disabled = false;
+			document.getElementById('downloadMap').className = 'btn';
 			
 			// Merge all the canvases together
 			var superCanvas = document.createElement('canvas');
@@ -100,6 +100,7 @@ var runSimulation = function(){
 			
 			//superCanvasContext.drawImage(background.elm, 0, 0);
 			superCanvasContext.drawImage(background.elm, 0, 0);
+			superCanvasContext.drawImage(canvas.elm, 0, 0);
 			superCanvasContext.drawImage(canvasRoutes.elm, 0, 0);
 			
 			document.getElementById('downloadMap').href = superCanvas.toDataURL();
