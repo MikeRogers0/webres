@@ -7,8 +7,8 @@ var Weather = function(){
 	this.callback = function(){};
 }
 
-Weather.prototype.getFillStyle = function(dangerLevel){
-	return 'rgba(0,0,255,'+dangerLevel+')';
+Weather.prototype.getFillStyle = function(){
+	return 'rgba(0,0,255,'+(Math.random() / 5)+')';
 }
 
 /**
@@ -16,44 +16,22 @@ Weather.prototype.getFillStyle = function(dangerLevel){
  */
 Weather.prototype.updateCanvas = function(){
 	// Reset the lap/lng.
-	this.load();
 	this.draw();
+	this.callback();
 }
 
 /**
- *  Load up the terrain info from a source on the internet.
- */
-Weather.prototype.load = function(){
-	// Do the API call & magic *Shiny eyes*.
-	
-	// For now I'm ganna draw a bunch of circles.
-	
-}
-
-/**
- *  
+ *  Draw a bunch of random clouds
  */
 Weather.prototype.draw = function(){
-	// We are going to make some areas which varing dangers.
-	canvas.ctx.fillStyle = this.getFillStyle(0.2);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(275, 75, 40, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	canvas.ctx.fillStyle = this.getFillStyle(0.2);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(75, 275, 40, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	canvas.ctx.fillStyle = this.getFillStyle(0.3);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(375, 175, 20, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	this.callback();
+	for(var i = 0; i < (Math.random() * 15); i++){
+		// We are going to make some areas which varing dangers.
+		canvas.ctx.fillStyle = this.getFillStyle();
+		canvas.ctx.beginPath();
+		canvas.ctx.arc(Math.random() * 650, Math.random() * 400, Math.random() * 50, 0, Math.PI*2, true); 
+		canvas.ctx.closePath();
+		canvas.ctx.fill();
+	}
 }
 
 Weather.prototype.initialize = function(){

@@ -3,7 +3,7 @@ var Mines = function(){
 }
 
 Mines.prototype.getFillStyle = function(dangerLevel){
-	return 'rgba(0,0,0,0.8)';
+	return 'rgba(0,0,0,'+((Math.random() * 0.5) + 0.5)+')';
 }
 
 /**
@@ -12,32 +12,21 @@ Mines.prototype.getFillStyle = function(dangerLevel){
 Mines.prototype.updateCanvas = function(){
 	// Reset the lap/lng.
 	this.draw();
-	
 	this.callback();
 }
 
 /**
- *  
+ *  Draw a bunch of random mines.
  */
 Mines.prototype.draw = function(){
-	// We are going to make some areas which varing dangers.
-	canvas.ctx.fillStyle = this.getFillStyle(0.5);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(175, 75, 40, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	canvas.ctx.fillStyle = this.getFillStyle(0.2);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(75, 175, 40, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
-	
-	canvas.ctx.fillStyle = this.getFillStyle(0.3);
-	canvas.ctx.beginPath();
-	canvas.ctx.arc(375, 175, 10, 0, Math.PI*2, true); 
-	canvas.ctx.closePath();
-	canvas.ctx.fill();
+	for(var i = 0; i < (Math.random() * 5); i++){
+		// We are going to make some areas which varing dangers.
+		canvas.ctx.fillStyle = this.getFillStyle();
+		canvas.ctx.beginPath();
+		canvas.ctx.arc(Math.random() * 650, Math.random() * 400, Math.random() * 30, 0, Math.PI*2, true); 
+		canvas.ctx.closePath();
+		canvas.ctx.fill();
+	}
 }
 
 Mines.prototype.initialize = function(){

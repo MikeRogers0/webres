@@ -139,9 +139,15 @@
 					    	<form>
 								<fieldset>
 									<label for="dijkstrasDistance">
-										Dijkstras Route Accuracy: <span id="dijkstrasDistanceVisual">8</span>/10
+										Dijkstras Route Accuracy:
 									</label>
-									<input class="slider" type="range" min="2" max="10" step="2" value="8" id="dijkstrasDistance" data-target="dijkstrasDistanceVisual" /> 
+									<select id="dijkstrasDistance">
+										<option value="2">2 (Most Accurate)</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="8">8</option>
+										<option value="10" selected="selected">10 (Fastest)</option>
+									</select>
 								</fieldset>
 							</form>
 					    </div>

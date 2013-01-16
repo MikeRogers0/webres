@@ -5,8 +5,8 @@ var Climb = function(){
 	this.callback = function(){};
 }
 
-Climb.prototype.getFillStyle = function(){
-	return 'rgba(0,255,0,0.4)';
+Climb.prototype.getFillStyle = function(dangerLevel){
+	return 'rgba(0,255,0,'+dangerLevel+')';
 }
 
 /**
@@ -64,13 +64,18 @@ Climb.prototype.analyse = function(){
 			y = parseInt(pixelPos / 640);
 			x = pixelPos%640; // * Use a Modulo operation to get the remaining lines.
 
-			canvas.ctx.fillStyle = this.getFillStyle();//set danger level
+			canvas.ctx.fillStyle = this.getFillStyle('0.6');//set danger level
+			
+			// Check if there is climb around this pixel:
+			if(
+				pix[(i+1) - 4] == 255 &&
+				pix[(i+1) + 4] == 255 &&
+				pix[(i+1) - (640 * 4)] == 255 &&
+				pix[(i+1) + (640 * 4)] == 255
+			){
+				canvas.ctx.fillStyle = this.getFillStyle('0.9');
+			}
 			canvas.ctx.fillRect(x, y, 1, 1);
-		}
-		if(popPixel[pix[i]+','+pix[i+1]+','+pix[i+2]]){
-			popPixel[pix[i]+','+pix[i+1]+','+pix[i+2]]++;
-		} else {
-			popPixel[pix[i]+','+pix[i+1]+','+pix[i+2]] = 1;
 		}
 	}
 	
