@@ -117,7 +117,7 @@ var runSimulation = function(){
 // Add the listners
 document.querySelector('#updateMap').addEventListener('click', runSimulation, false);
 
-// Add luistners for the sliders
+// Add listners for the sliders
 $('input.slider').change(function(){
 	$('#'+$(this).attr('data-target')).html($(this).val());
 	

@@ -21,6 +21,7 @@ Dijkstras.prototype.someFunction = function(){
 Dijkstras.prototype.getDangerLevel = function(x,y){
 	// Get a get the image data on that pixel.
 	imgData = canvas.ctx.getImageData(x, y, 1, 1);
+	//alert(imgData.data[3]);
 	
 	/**
 	 * imgData returns the image data, but in rgba format (0 - 255 (maybe 256)). 
@@ -66,6 +67,7 @@ function buildGraphMatrix(){
 		for(j=0;j<height;j++){
 			graph[i][j] = {};
 			graph[i][j].danger = dijkstras.getDangerLevel(posX, posY);
+			//console.log(i + ' , ' + j + ' = ' + graph[i][j].danger);
 			graph[i][j]._id = _id;
 			graph[i][j].x = i;
 			graph[i][j].xPix = i*distance;
